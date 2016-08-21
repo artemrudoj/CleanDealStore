@@ -1,6 +1,8 @@
 package com.mipt.artem.cleandealstore.di;
 
 
+import com.mipt.artem.cleandealstore.model.ShoppingCart;
+import com.mipt.artem.cleandealstore.model.ShoppingCartImpl;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
 import com.mipt.artem.cleandealstore.rest.ApiModule;
 
@@ -20,6 +22,13 @@ public class ModelModule {
     @Singleton
     ApiInterface provideApiInterface() {
         return ApiModule.getApiInterface(Const.BASE_URL);
+    }
+
+
+    @Provides
+    @Singleton
+    ShoppingCart provideShoppingCartManager() {
+        return new ShoppingCartImpl();
     }
 
     @Provides

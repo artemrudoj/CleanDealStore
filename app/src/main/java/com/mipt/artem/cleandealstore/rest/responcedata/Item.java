@@ -14,21 +14,24 @@ public class Item implements Parcelable {
 
     public static final String EXTRA_ITEM = "Item.EXTRA_ITEM";
     @SerializedName("id")
-    private int id;
+    protected int id;
     @SerializedName("image_url")
-    private String imageUrl;
+    protected String imageUrl;
     @SerializedName("name_full")
-    private String nameFull;
+    protected String nameFull;
     @SerializedName("cost")
-    private String cost;
+    protected String cost;
     @SerializedName("date_added")
-    private String dateAdded;
+    protected String dateAdded;
     @SerializedName("about")
-    private String about;
+    protected String about;
     @SerializedName("extra_info")
-    private ExtraInfo extraInfo;
+    protected ExtraInfo extraInfo;
     @SerializedName("subcategory")
-    private int subcategory;
+    protected int subcategory;
+
+    public Item() {
+    }
 
     /**
      *

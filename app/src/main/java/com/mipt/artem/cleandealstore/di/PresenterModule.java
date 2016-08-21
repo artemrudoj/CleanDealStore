@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore.di;
 
 
 import com.mipt.artem.cleandealstore.model.GoodsModel;
+import com.mipt.artem.cleandealstore.model.SubscriptionModel;
 
 import javax.inject.Singleton;
 
@@ -10,14 +11,19 @@ import dagger.Provides;
 import rx.subscriptions.CompositeSubscription;
 
 @Module
-
 public class PresenterModule {
 
-    //// TODO: 16.08.16 move to interface
+
     @Provides
     @Singleton
-    GoodsModel provideDataRepository() {
+    GoodsModel provideGoodsModel() {
         return new GoodsModel();
+    }
+
+    @Provides
+    @Singleton
+    SubscriptionModel provideSubscriptionModel() {
+        return new SubscriptionModel();
     }
 
     @Provides

@@ -34,6 +34,7 @@ public class SubCategoriesListFragment extends RecyclerViewBaseFragment<Subcateg
 
     private final static String EXTRA_CATEGORY = "SubCategoriesListFragment.EXTRA_CATEGORY";
     private SubCategoriesListAdapter mAdapter;
+
     @Inject
     SubCategoriesListPresenter mPresenter;
 

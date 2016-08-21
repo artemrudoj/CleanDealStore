@@ -3,7 +3,7 @@ package com.mipt.artem.cleandealstore.goods.category;
 import android.os.Bundle;
 
 
-import com.mipt.artem.cleandealstore.base.BasePresenter;
+import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import rx.Observer;
 import rx.Subscription;
 
-public class CategoriesListPresenter extends BasePresenter {
+public class CategoriesListPresenter extends BaseGoodsPresenter {
 
 
     private CategoriesListView mView;

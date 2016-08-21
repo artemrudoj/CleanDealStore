@@ -1,23 +1,25 @@
 package com.mipt.artem.cleandealstore.base;
 
-
-
 import com.mipt.artem.cleandealstore.model.GoodsModel;
+import com.mipt.artem.cleandealstore.model.SubscriptionModel;
 
 import javax.inject.Inject;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BasePresenter implements Presenter {
+/**
+ * Created by artem on 21.08.16.
+ */
+public class SubscriptionBasePresenter implements Presenter {
 
     @Inject
-    protected GoodsModel model;
+    protected SubscriptionModel model;
 
     @Inject
     protected CompositeSubscription compositeSubscription;
 
-    public BasePresenter() {
+    public SubscriptionBasePresenter() {
         CleanDealStoreApplication.getComponent().inject(this);
     }
 
@@ -29,5 +31,5 @@ public abstract class BasePresenter implements Presenter {
     public void onStop() {
         compositeSubscription.clear();
     }
-
 }
+

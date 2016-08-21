@@ -4,7 +4,6 @@ import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.di.Const;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
-import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
 import com.mipt.artem.cleandealstore.rest.responcedata.Subcategory;
 
@@ -23,6 +22,9 @@ public class GoodsModel {
 
     @Inject
     protected ApiInterface apiInterface;
+
+    @Inject
+    protected ShoppingCart mShoppingCart;
 
     @Inject
     @Named(Const.UI_THREAD)

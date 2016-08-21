@@ -1,18 +1,24 @@
 package com.mipt.artem.cleandealstore.goods.item.info;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +32,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.rest.responcedata.ExtraInfo;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
+import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartActivity;
 import com.mipt.artem.cleandealstore.utils.AppBarStateChangeListener;
 import com.squareup.picasso.Picasso;
 
@@ -37,12 +44,10 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.mipt.artem.cleandealstore.utils.AppBarStateChangeListener.State.COLLAPSED;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemInfoFragment extends BaseFragment implements ItemInfoView{
+public class ItemInfoFragment extends BaseFragment implements ItemInfoView, View.OnClickListener {
     private Item mItem;
     @Inject
     ItemInfoPresenter mPresenter;
@@ -64,6 +69,13 @@ public class ItemInfoFragment extends BaseFragment implements ItemInfoView{
 
     @Bind(R.id.about_tv)
     TextView mAboutTextView;
+
+    @Bind(R.id.add_to_trash_b)
+    Button mAddToShoppingCartButton;
+
+    @Bind(R.id.add_to_trash_fab)
+    FloatingActionButton mAddToShoppingFloatingActionButton;
+
 
     @Bind(R.id.app_bl)
     AppBarLayout mAppBarLayout;
@@ -111,28 +123,66 @@ public class ItemInfoFragment extends BaseFragment implements ItemInfoView{
         mAboutTextView.setText(mItem.getAbout());
         mAdditionalInfoListView.setAdapter(new AdditionalInfoAdapter(mItem.getExtraInfo(), getActivity()));
         mToolbar.inflateMenu(R.menu.menu_toolbar);
-        mToolbar.getMenu().findItem(R.id.trash_item).setVisible(false);
+        final MenuItem shoppingCartItem = mToolbar.getMenu().findItem(R.id.trash_item);
+        shoppingCartItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                goToShoppingCart();
+                return false;
+            }
+        });
+        shoppingCartItem.setVisible(false);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
                 switch (state) {
                     case COLLAPSED:
-                        mToolbar.getMenu().findItem(R.id.trash_item).setVisible(true);
+                        shoppingCartItem.setVisible(true);
                         break;
                     case EXPANDED:
-                        mToolbar.getMenu().findItem(R.id.trash_item).setVisible(false);
+                        shoppingCartItem.setVisible(false);
                         break;
                 }
-//                Log.d("STATE", state.name());
             }
         });
-
+        mAddToShoppingCartButton.setOnClickListener(this);
+        mAddToShoppingFloatingActionButton.setOnClickListener(this);
     }
 
     @Override
     protected Presenter getPresenter() {
         return mPresenter;
     }
+
+    @Override
+    public void goToShoppingCart() {
+        ShoppingCartActivity.goTo(getActivity());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == PickNumberOfItemsAllertDialog.PICK_NUMBER_ACTION) {
+            mPresenter.AddToShoppingCart(mItem, data.getExtras().getInt(PickNumberOfItemsAllertDialog.EXTRA_NUMBER));
+            Snackbar.make(mCollapsingToolbarLayout, R.string.added, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.toShoppingCart, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            goToShoppingCart();
+                        }
+                    }).show();
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        PickNumberOfItemsAllertDialog.showDialog(getActivity().getSupportFragmentManager(),
+                ItemInfoFragment.this);
+    }
+
 
     public static class AdditionalInfoAdapter extends BaseAdapter {
 

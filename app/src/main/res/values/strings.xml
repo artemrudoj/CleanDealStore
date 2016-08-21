@@ -27,4 +27,13 @@
     <string name="taste">Вкус</string>
     <string name="use">Использование</string>
     <string name="trash">корзина</string>
+    <string name="added">Добавлено</string>
+    <string name="toShoppingCart">В корзину</string>
+    <string name="shoppingCart">Корзина</string>
+    <string name="ok">ok</string>
+    <string name="enter_count">Введите кол-во</string>
+    <string name="cancel">отмена</string>
+    <string name="incorrect_goods_count">Некорректное число товара</string>
+    <string name="count">Количество:</string>
+    <string name="price">Цена:</string>
 </resources>

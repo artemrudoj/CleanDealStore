@@ -4,6 +4,8 @@ import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
 import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
+import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartFragment;
+import com.mipt.artem.cleandealstore.subscription.SubscriptionsFragment;
 
 import javax.inject.Singleton;
 
@@ -20,4 +22,8 @@ public interface ViewComponent {
     void inject(ItemsListFragment itemsFragment);
 
     void inject(ItemInfoFragment itemInfoFragment);
+
+    void inject(ShoppingCartFragment shoppingCartFragment);
+
+    void inject(SubscriptionsFragment subscriptionsFragment);
 }

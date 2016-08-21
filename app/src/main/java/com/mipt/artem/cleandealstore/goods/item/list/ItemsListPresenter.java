@@ -2,7 +2,7 @@ package com.mipt.artem.cleandealstore.goods.item.list;
 
 import android.os.Bundle;
 
-import com.mipt.artem.cleandealstore.base.BasePresenter;
+import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
@@ -16,7 +16,7 @@ import rx.Subscription;
 /**
  * Created by artem on 20.08.16.
  */
-public class ItemsListPresenter extends BasePresenter {
+public class ItemsListPresenter extends BaseGoodsPresenter {
 
     private ItemsListView mView;
     private Subcategory mSubCategory;
