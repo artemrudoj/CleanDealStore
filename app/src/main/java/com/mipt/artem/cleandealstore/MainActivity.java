@@ -11,6 +11,8 @@ public class MainActivity extends NavigationDrawerProfileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setToolbar("Категории");
+        addHomeProfileButton();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new CategoriesListFragment()).commit();
         }

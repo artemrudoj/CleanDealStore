@@ -121,6 +121,6 @@ public class SubCategoriesListFragment extends RecyclerViewBaseFragment<Subcateg
     public void goToSubcategory(Subcategory category) {
         BaseActivity activity = (BaseActivity) getActivity();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                ItemsListFragment.newInstance(category)).commit();
+                ItemsListFragment.newInstance(category)).addToBackStack(null).commit();
     }
 }

@@ -20,6 +20,7 @@ public class ShoppingCartActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_with_toolbar);
         setToolbar(R.string.shoppingCart);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new ShoppingCartFragment()).commit();
         }

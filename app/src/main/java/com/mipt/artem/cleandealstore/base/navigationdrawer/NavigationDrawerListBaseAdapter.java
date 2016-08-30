@@ -49,8 +49,8 @@ public class NavigationDrawerListBaseAdapter extends BaseAdapter {
         view = mInflater.inflate(R.layout.simple_record_item, parent, false);
 
 
-        ((TextView) view.findViewById(R.id.record_text_tv)).setText(mContext.getString(mItems.get(position).getText()));
-        ((ImageView)view.findViewById(R.id.record_ic_iv)).setImageResource(mItems.get(position).getIcon());
+        ((TextView) view.findViewById(R.id.record_text_tv)).setText(mContext.getString(navigationItem.getText()));
+        ((ImageView)view.findViewById(R.id.record_ic_iv)).setImageResource(navigationItem.getIcon());
 
         return view;
     }

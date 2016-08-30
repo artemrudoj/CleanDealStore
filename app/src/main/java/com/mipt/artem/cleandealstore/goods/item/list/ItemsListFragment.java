@@ -106,7 +106,7 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
 
     @Override
     protected Presenter getPresenter() {
-        return null;
+        return mPresenter;
     }
 
     @Override
