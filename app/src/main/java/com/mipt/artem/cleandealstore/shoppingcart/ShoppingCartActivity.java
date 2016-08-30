@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mipt.artem.cleandealstore.R;
+import com.mipt.artem.cleandealstore.base.BackButtonActivity;
 import com.mipt.artem.cleandealstore.base.ToolbarActivity;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionsFragment;
 
-public class ShoppingCartActivity extends ToolbarActivity {
+public class ShoppingCartActivity extends BackButtonActivity {
 
     public static void goTo(Activity activity) {
         Intent intent = new Intent(activity, ShoppingCartActivity.class);
