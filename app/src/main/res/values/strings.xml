@@ -36,4 +36,8 @@
     <string name="incorrect_goods_count">Некорректное число товара</string>
     <string name="count">Количество:</string>
     <string name="price">Цена:</string>
+    <string name="categories">Категории</string>
+    <string name="text_cart">Корзина</string>
+    <string name="text_catalog">Каталог</string>
+    <string name="text_subscription">Подписка</string>
 </resources>

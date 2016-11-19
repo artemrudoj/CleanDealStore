@@ -17,5 +17,4 @@
         android:scrollingCache="false"
         android:background="@android:color/white"
         android:choiceMode="singleChoice"/>
-
 </android.support.v4.widget.DrawerLayout>
