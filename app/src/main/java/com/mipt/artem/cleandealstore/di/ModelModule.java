@@ -24,7 +24,6 @@ public class ModelModule {
         return ApiModule.getApiInterface(Const.BASE_URL);
     }
 
-
     @Provides
     @Singleton
     ShoppingCart provideShoppingCartManager() {

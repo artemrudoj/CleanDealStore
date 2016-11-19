@@ -22,7 +22,7 @@ public class ItemsListPresenter extends BaseGoodsPresenter {
     private Subcategory mSubCategory;
 
 
-    // for DI
+
     @Inject
     public ItemsListPresenter() {
     }
