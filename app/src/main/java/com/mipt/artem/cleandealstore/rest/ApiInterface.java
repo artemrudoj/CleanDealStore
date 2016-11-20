@@ -20,14 +20,14 @@ import rx.Observable;
 public interface ApiInterface {
 
 
-    @POST("/api/site/get_categories/")
+    @POST("/api/content/get_subcategories/")
     Observable<List<Category>> getCategories();
 
     @FormUrlEncoded
-    @POST("/api/site/get_subcategories/")
+    @POST("/api/content/get_subcategories/")
     Observable<List<Subcategory>> getSubcategories(@Field("category") int subcategory);
 
-    @GET("/api/site/get_items/")
+    @GET("/api/content/get_items/")
     Observable<ItemsHolder> getItems(@Query("name_full") String name,
                                      @Query("subcategory") int subcategoryId);
 }
