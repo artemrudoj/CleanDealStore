@@ -9,6 +9,7 @@ import android.content.Context;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 
 import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
@@ -22,7 +23,7 @@ public final class ApiModule {
 
     private static Context getContext() {
         //// TODO: 20/11/16
-        return null;
+        return CleanDealStoreApplication.get();
     }
 
 

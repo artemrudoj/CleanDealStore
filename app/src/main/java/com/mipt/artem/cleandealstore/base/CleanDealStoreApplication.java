@@ -1,6 +1,7 @@
 package com.mipt.artem.cleandealstore.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.mipt.artem.cleandealstore.di.AppComponent;
 import com.mipt.artem.cleandealstore.di.DaggerAppComponent;
@@ -14,6 +15,8 @@ import com.mipt.artem.cleandealstore.model.User;
 public class CleanDealStoreApplication  extends Application {
     private static AppComponent component;
     private static UserComponent userComponent;
+    private static CleanDealStoreApplication context;
+
 
 
     public UserComponent createUserComponent(User user) {
@@ -36,6 +39,7 @@ public class CleanDealStoreApplication  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        context = this;
         component = buildComponent();
     }
 
@@ -43,4 +47,9 @@ public class CleanDealStoreApplication  extends Application {
         return DaggerAppComponent.builder()
                 .build();
     }
+
+    public static CleanDealStoreApplication get() {
+        return CleanDealStoreApplication.context;
+    }
+
 }
