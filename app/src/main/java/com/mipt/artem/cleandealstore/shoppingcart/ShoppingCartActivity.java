@@ -20,7 +20,7 @@ public class ShoppingCartActivity extends NavigationDrawerProfileActivity {
         setToolbar(R.string.shoppingCart);
         addHomeProfileButton();
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new ShoppingCartFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new ShoppingCartContainerFragment()).commit();
         }
     }
 

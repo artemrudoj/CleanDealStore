@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class PickNumberOfItemsAllertDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         mEditText = new EditText(getActivity());
+        mEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(mEditText);
         builder.setMessage(R.string.enter_count)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

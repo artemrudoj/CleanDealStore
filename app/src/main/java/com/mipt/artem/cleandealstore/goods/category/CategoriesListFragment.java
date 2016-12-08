@@ -128,6 +128,8 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
         super.onResume();
         if (mCategory != null) {
             ((ToolbarActivity) getActivity()).setToolbar(mCategory.getName());
+        } else {
+            ((ToolbarActivity) getActivity()).setToolbar(R.string.categories);
         }
     }
 }

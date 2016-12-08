@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore.shoppingcart;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,10 +12,6 @@ import android.view.ViewGroup;
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.recycledviews.RecyclerViewBaseFragment;
-import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
-import com.mipt.artem.cleandealstore.di.view.ViewComponent;
-import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
-import com.mipt.artem.cleandealstore.goods.category.CategoriesListAdapter;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
 
 import java.util.List;
@@ -24,7 +21,10 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ShoppingCartFragment extends RecyclerViewBaseFragment<ItemInCart> implements ShoppingCartView{
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ShoppingCartBaseFragment extends RecyclerViewBaseFragment<ItemInCart> implements ShoppingCartView{
 
 
     @Inject
@@ -35,26 +35,17 @@ public class ShoppingCartFragment extends RecyclerViewBaseFragment<ItemInCart> i
 
     private ShoppingCartAdapter mAdapter;
 
-    public ShoppingCartFragment() {
+    public ShoppingCartBaseFragment() {
         // Required empty public constructor
     }
 
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ViewComponent viewComponent = DaggerViewComponent.builder()
-                .viewDynamicModule(new ViewDynamicModule(this))
-                .build();
-        viewComponent.inject(this);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_shopping_cart_base, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -85,3 +76,4 @@ public class ShoppingCartFragment extends RecyclerViewBaseFragment<ItemInCart> i
         mShoppingCartRecyclerView.setAdapter(mAdapter);
     }
 }
+

@@ -20,7 +20,7 @@ import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.ToolbarActivity;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
-import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartFragment;
+import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +95,7 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
             public void onTap() {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new ShoppingCartFragment())
+                        .replace(R.id.container, new ShoppingCartContainerFragment())
                         .addToBackStack(null)
                         .commit();
             }

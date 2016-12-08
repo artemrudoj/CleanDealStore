@@ -1,16 +1,26 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartFragment">
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/goods_rv"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/pager_container"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            android:elevation="6dp"
+            android:minHeight="?attr/actionBarSize"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/tab_layout"/>
+    </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -19,7 +29,6 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/vector_trash"
-        app:layout_anchor="@id/goods_rv"
+        app:layout_anchor="@id/pager_container"
         app:layout_anchorGravity="bottom|right|end" />
-</FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
