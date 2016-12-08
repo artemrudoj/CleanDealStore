@@ -1,6 +1,10 @@
 package com.mipt.artem.cleandealstore.base.navigationdrawer;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +23,12 @@ import java.util.List;
 public class NavigationDrawerListBaseAdapter extends BaseAdapter {
 
     List<NavigationItem> mItems;
-    Context mContext;
     LayoutInflater mInflater;
+    Context mContext;
 
     public NavigationDrawerListBaseAdapter(Context context, List<NavigationItem> objects) {
-        mContext = context;
         mItems = objects;
+        mContext = context.getApplicationContext();
         mInflater = (LayoutInflater) context. getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
@@ -49,8 +53,12 @@ public class NavigationDrawerListBaseAdapter extends BaseAdapter {
         view = mInflater.inflate(R.layout.simple_record_item, parent, false);
 
 
-        ((TextView) view.findViewById(R.id.record_text_tv)).setText(mContext.getString(navigationItem.getText()));
-        ((ImageView)view.findViewById(R.id.record_ic_iv)).setImageResource(navigationItem.getIcon());
+        ((TextView) view.findViewById(R.id.record_text_tv)).setText(navigationItem.getText());
+        Drawable drawable = navigationItem.getIcon();
+        drawable.setColorFilter(new
+                PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary),
+                PorterDuff.Mode.MULTIPLY));
+        ((ImageView)view.findViewById(R.id.record_ic_iv)).setImageDrawable(drawable);
 
         return view;
     }
