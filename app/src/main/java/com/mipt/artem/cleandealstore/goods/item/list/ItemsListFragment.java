@@ -20,7 +20,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoActivity;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
-import com.mipt.artem.cleandealstore.rest.responcedata.Subcategory;
+import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
     @Bind(R.id.items_rv)
     RecyclerView mItemsRecyclerView;
 
-    private Subcategory mSubcategory;
+    private Category mCategory;
     private ItemsAdapter mAdapter;
 
     public ItemsListFragment() {
@@ -48,23 +48,23 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
     }
 
 
-    public static ItemsListFragment newInstance(Subcategory subcategory) {
+    public static ItemsListFragment newInstance(Category category) {
         ItemsListFragment fragment = new ItemsListFragment();
         Bundle args = new Bundle();
-        args.putParcelable(EXTRA_SUBCATEGORY, subcategory);
+        args.putParcelable(EXTRA_SUBCATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
 
-    private Subcategory getSubCategotyFromArguments() {
+    private Category getSubCategotyFromArguments() {
         Bundle bundle = getArguments();
-        Subcategory subcategory;
+        Category category;
         if (bundle.containsKey(EXTRA_SUBCATEGORY)) {
-            subcategory = bundle.getParcelable(EXTRA_SUBCATEGORY);
+            category = bundle.getParcelable(EXTRA_SUBCATEGORY);
         } else {
             throw new IllegalArgumentException("can not found category");
         }
-        return subcategory;
+        return category;
     }
 
 
@@ -75,14 +75,14 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
                 .viewDynamicModule(new ViewDynamicModule(this))
                 .build();
         viewComponent.inject(this);
-        mSubcategory = getSubCategotyFromArguments();
+        mCategory = getSubCategotyFromArguments();
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((ToolbarActivity) getActivity()).setToolbar(mSubcategory.getName());
+        ((ToolbarActivity) getActivity()).setToolbar(mCategory.getName());
     }
 
 
@@ -99,7 +99,7 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
         mItemsRecyclerView.setLayoutManager(llm);
 
 
-        mPresenter.onCreateView(savedInstanceState, mSubcategory);
+        mPresenter.onCreateView(savedInstanceState, mCategory);
         return view;
     }
 

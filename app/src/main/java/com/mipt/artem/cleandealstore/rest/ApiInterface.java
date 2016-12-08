@@ -1,8 +1,7 @@
 package com.mipt.artem.cleandealstore.rest;
 
-import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
-import com.mipt.artem.cleandealstore.rest.responcedata.Subcategory;
+import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
 
@@ -19,15 +18,11 @@ import rx.Observable;
  */
 public interface ApiInterface {
 
-
-    @POST("/api/content/get_subcategories/")
-    Observable<List<Category>> getCategories();
-
     @FormUrlEncoded
     @POST("/api/content/get_subcategories/")
-    Observable<List<Subcategory>> getSubcategories(@Field("category") int subcategory);
+    Observable<List<Category>> getSubcategories(@Field("category") Integer subcategory);
 
     @GET("/api/content/get_items/")
     Observable<ItemsHolder> getItems(@Query("name_full") String name,
-                                     @Query("subcategory") int subcategoryId);
+                                     @Query("category") Integer subcategoryId);
 }

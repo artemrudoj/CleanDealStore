@@ -9,51 +9,64 @@ import com.google.gson.annotations.SerializedName;
  * Created by artem on 15.08.16.
  */
 public class Category implements Parcelable {
-
+    public static final Category ROOT = null;
     @SerializedName("id")
     private int id;
     @SerializedName("name")
     private String name;
-
-    /**
-     *
-     * @return
-     * The id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     *
-     * @param id
-     * The id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     *
-     * @return
-     * The name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     *
-     * @param name
-     * The name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+    @SerializedName("contains_categories")
+    private int containsCategoriesCount;
+    @SerializedName("contains_items")
+    private int containsItemsCount;
+    @SerializedName("parent_category")
+    private int parentCategoryId;
 
     protected Category(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        containsCategoriesCount = in.readInt();
+        containsItemsCount = in.readInt();
+        parentCategoryId = in.readInt();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getContainsCategoriesCount() {
+        return containsCategoriesCount;
+    }
+
+    public void setContainsCategoriesCount(int containsCategoriesCount) {
+        this.containsCategoriesCount = containsCategoriesCount;
+    }
+
+    public int getContainsItemsCount() {
+        return containsItemsCount;
+    }
+
+    public void setContainsItemsCount(int containsItemsCount) {
+        this.containsItemsCount = containsItemsCount;
+    }
+
+    public int getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(int parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
     }
 
     @Override
@@ -65,6 +78,9 @@ public class Category implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+        dest.writeInt(containsCategoriesCount);
+        dest.writeInt(containsItemsCount);
+        dest.writeInt(parentCategoryId);
     }
 
     @SuppressWarnings("unused")

@@ -6,7 +6,7 @@ import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
-import com.mipt.artem.cleandealstore.rest.responcedata.Subcategory;
+import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import javax.inject.Inject;
 
@@ -19,7 +19,7 @@ import rx.Subscription;
 public class ItemsListPresenter extends BaseGoodsPresenter {
 
     private ItemsListView mView;
-    private Subcategory mSubCategory;
+    private Category mCategory;
 
 
 
@@ -33,13 +33,13 @@ public class ItemsListPresenter extends BaseGoodsPresenter {
         this.mView = view;
     }
 
-    public void onCreateView(Bundle savedInstanceState, Subcategory category) {
-        mSubCategory = category;
+    public void onCreateView(Bundle savedInstanceState, Category category) {
+        mCategory = category;
         loadData();
     }
 
     private void loadData() {
-        Subscription subscription = model.getItem(null, mSubCategory.getId()).subscribe(new Observer<ItemsHolder>() {
+        Subscription subscription = model.getItem(null, mCategory.getId()).subscribe(new Observer<ItemsHolder>() {
             @Override
             public void onCompleted() {
                 mView.stopLoading();

@@ -3,9 +3,8 @@ package com.mipt.artem.cleandealstore.model;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.di.Const;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
-import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
-import com.mipt.artem.cleandealstore.rest.responcedata.Subcategory;
+import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
 
@@ -41,21 +40,15 @@ public class GoodsModel {
     }
 
 
-    public Observable<List<Category>> getCategories() {
-        return apiInterface
-                .getCategories()
-                .compose(applySchedulers());
-    }
 
-
-    public Observable<List<Subcategory>> getSubcategories(int id) {
+    public Observable<List<Category>> getSubcategories(Integer id) {
         return apiInterface
                 .getSubcategories(id)
                 .compose(applySchedulers());
     }
 
 
-    public Observable<ItemsHolder> getItem(String name, int id) {
+    public Observable<ItemsHolder> getItem(String name, Integer id) {
         return apiInterface
                 .getItems(name, id)
                 .compose(applySchedulers());
