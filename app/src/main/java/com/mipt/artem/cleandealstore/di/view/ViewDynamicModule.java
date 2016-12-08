@@ -7,18 +7,13 @@ import com.mipt.artem.cleandealstore.goods.category.CategoriesListView;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoView;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoPresenter;
-import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListFragment;
-import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListPresenter;
-import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListView;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListView;
-import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartPresenter;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartView;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionPresenter;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionView;
-import com.mipt.artem.cleandealstore.subscription.SubscriptionsFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -27,7 +22,6 @@ import dagger.Provides;
 public class ViewDynamicModule {
 
     private CategoriesListView mCategoriesListView;
-    private SubCategoriesListView mSubCategoriesListView;
     private ItemsListView mItemsListView;
     private ItemInfoView mItemInfoView;
     private ShoppingCartView mShoppingCartView;
@@ -35,10 +29,6 @@ public class ViewDynamicModule {
 
     public ViewDynamicModule(CategoriesListView view) {
         this.mCategoriesListView = view;
-    }
-
-    public ViewDynamicModule(SubCategoriesListFragment view) {
-        this.mSubCategoriesListView = view;
     }
 
     public ViewDynamicModule(ItemsListFragment view) {
@@ -57,11 +47,6 @@ public class ViewDynamicModule {
         this.mSubscriptionView = view;
     }
 
-
-    @Provides
-    SubCategoriesListPresenter provideSubCategoriesListPresenter() {
-        return new SubCategoriesListPresenter(mSubCategoriesListView);
-    }
 
     @Provides
     CategoriesListPresenter provideCategoriesListPresenter() {

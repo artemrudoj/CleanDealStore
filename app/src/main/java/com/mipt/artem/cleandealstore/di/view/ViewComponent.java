@@ -2,7 +2,6 @@ package com.mipt.artem.cleandealstore.di.view;
 
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
-import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartFragment;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionsFragment;
@@ -16,8 +15,6 @@ import dagger.Component;
 public interface ViewComponent {
 
     void inject(CategoriesListFragment repoListFragment);
-
-    void inject(SubCategoriesListFragment subCategoriesListFragment);
 
     void inject(ItemsListFragment itemsFragment);
 
