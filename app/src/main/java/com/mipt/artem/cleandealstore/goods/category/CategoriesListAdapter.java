@@ -22,6 +22,6 @@ public class CategoriesListAdapter extends BaseAdapter<Category> {
         final Category category = list.get(position);
         holder.text.setText(category.getName());
         holder.itemView.setOnClickListener(v ->
-                mPresenter.clickRepo(category));
+                mPresenter.clickCategory(category));
     }
 }

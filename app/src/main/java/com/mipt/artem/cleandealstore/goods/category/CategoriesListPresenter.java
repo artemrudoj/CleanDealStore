@@ -18,7 +18,7 @@ public class CategoriesListPresenter extends BaseGoodsPresenter {
 
 
     private CategoriesListView mView;
-
+    private Category mCategory;
 
     // for DI
     @Inject
@@ -31,12 +31,14 @@ public class CategoriesListPresenter extends BaseGoodsPresenter {
         this.mView = view;
     }
 
-    public void onCreateView(Bundle savedInstanceState) {
+    public void onCreateView(Bundle savedInstanceState, Category category) {
+        mCategory = category;
         loadData();
     }
 
     private void loadData() {
-       Subscription subscription = model.getCategories().subscribe(new Observer<List<Category>>() {
+        Integer categoryId = mCategory != null ? mCategory.getId() : null;
+        Subscription subscription = model.getSubcategories(categoryId).subscribe(new Observer<List<Category>>() {
            @Override
            public void onCompleted() {
                mView.stopLoading();
@@ -52,12 +54,12 @@ public class CategoriesListPresenter extends BaseGoodsPresenter {
                mView.stopLoading();
                mView.showData(categories);
            }
-       });
+        });
         mView.showLoading();
         addSubscription(subscription);
     }
 
-    public void clickRepo(Category category) {
+    public void clickCategory(Category category) {
         mView.goToCategory(category);
     }
 }

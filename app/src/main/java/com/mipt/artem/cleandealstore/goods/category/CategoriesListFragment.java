@@ -3,6 +3,7 @@ package com.mipt.artem.cleandealstore.goods.category;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.BaseActivity;
 import com.mipt.artem.cleandealstore.base.Presenter;
+import com.mipt.artem.cleandealstore.base.ToolbarActivity;
 import com.mipt.artem.cleandealstore.base.recycledviews.RecyclerViewBaseFragment;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
-import com.mipt.artem.cleandealstore.goods.subcategory.SubCategoriesListFragment;
+import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
@@ -35,9 +36,34 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
     @Bind(R.id.categories_rv)
     RecyclerView mCategoriesRecyclerView;
 
+    private final static String EXTRA_CATEGORY = "SubCategoriesListFragment.EXTRA_CATEGORY";
+    public static final int ROOT_CATEGORY = -1;
+
     private CategoriesListAdapter mAdapter;
+    private Category mCategory;
+
     public CategoriesListFragment() {
         // Required empty public constructor
+    }
+
+
+    public static CategoriesListFragment newInstance(Category category) {
+        CategoriesListFragment fragment = new CategoriesListFragment();
+        if (category != Category.ROOT) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(EXTRA_CATEGORY, category);
+            fragment.setArguments(bundle);
+        }
+        return fragment;
+    }
+
+    private Category getCategoryFromArguments() {
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(EXTRA_CATEGORY)) {
+            return bundle.getParcelable(EXTRA_CATEGORY);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -47,6 +73,7 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
                     .viewDynamicModule(new ViewDynamicModule(this))
                     .build();
         viewComponent.inject(this);
+        mCategory = getCategoryFromArguments();
     }
 
     @Override
@@ -62,7 +89,7 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
         mCategoriesRecyclerView.setLayoutManager(llm);
 
 
-        mPresenter.onCreateView(savedInstanceState);
+        mPresenter.onCreateView(savedInstanceState, mCategory);
 
         return view;
     }
@@ -75,9 +102,14 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
 
     @Override
     public void goToCategory(Category category) {
-        BaseActivity activity = (BaseActivity) getActivity();
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                SubCategoriesListFragment.newInstance(category)).addToBackStack(null).commit();
+        Fragment fragment;
+        if (category.getContainsCategoriesCount() != 0) {
+            fragment = CategoriesListFragment.newInstance(category);
+        } else {
+            fragment = ItemsListFragment.newInstance(category);
+        }
+        getFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                .addToBackStack(null).commit();
     }
 
     @Override
@@ -89,5 +121,13 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
     public void showData(List data) {
         mAdapter = new CategoriesListAdapter(data, mPresenter);
         mCategoriesRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mCategory != null) {
+            ((ToolbarActivity) getActivity()).setToolbar(mCategory.getName());
+        }
     }
 }
