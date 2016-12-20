@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.Presenter;
-import com.mipt.artem.cleandealstore.base.ToolbarActivity;
 import com.mipt.artem.cleandealstore.base.recycledviews.RecyclerViewBaseFragment;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
+import com.mipt.artem.cleandealstore.goods.category.info.CategoryWithDetailInfoHolder;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
@@ -118,8 +118,9 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
     }
 
     @Override
-    public void showData(List data) {
-        mAdapter = new CategoriesListAdapter(data, mPresenter);
+    public void showData(List<Category>  data) {
+        List<CategoryWithDetailInfoHolder> holdersList = Category.convertListToHolder(data);
+        mAdapter = new CategoriesListAdapter(holdersList, mPresenter);
         mCategoriesRecyclerView.setAdapter(mAdapter);
     }
 
@@ -127,9 +128,9 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
     public void onResume() {
         super.onResume();
         if (mCategory != null) {
-            ((ToolbarActivity) getActivity()).setToolbar(mCategory.getName());
+            setToolbar(mCategory.getName());
         } else {
-            ((ToolbarActivity) getActivity()).setToolbar(R.string.categories);
+            setToolbar(R.string.categories);
         }
     }
 }

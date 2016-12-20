@@ -1,5 +1,6 @@
 package com.mipt.artem.cleandealstore.goods.item.list;
 
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
         holder.name.setText(item.getNameFull());
         holder.price.setText(Utils.addSymbolOfRuble(item.getCost()));
         holder.itemView.setOnClickListener(v ->
-                mPresenter.clickItem(item));
+                mPresenter.clickItem(item, holder.image));
+        ViewCompat.setTransitionName(holder.image, String.valueOf(position) + "_image");
         Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.image);
     }
 

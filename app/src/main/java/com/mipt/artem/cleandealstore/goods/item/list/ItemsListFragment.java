@@ -1,26 +1,38 @@
 package com.mipt.artem.cleandealstore.goods.item.list;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.BaseActivity;
 import com.mipt.artem.cleandealstore.base.Presenter;
-import com.mipt.artem.cleandealstore.base.ToolbarActivity;
 import com.mipt.artem.cleandealstore.base.recycledviews.RecyclerViewBaseFragment;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
-import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoActivity;
+import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
+import com.mipt.artem.cleandealstore.ui.DetailsTransition;
 
 import java.util.List;
 
@@ -28,6 +40,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.support.transition.TransitionSet.ORDERING_TOGETHER;
 
 
 public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements ItemsListView {
@@ -82,7 +96,7 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
     @Override
     public void onResume() {
         super.onResume();
-        ((ToolbarActivity) getActivity()).setToolbar(mCategory.getName());
+        setToolbar(mCategory.getName());
     }
 
 
@@ -121,8 +135,66 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
     }
 
     @Override
-    public void goToItemInfo(Item item) {
-        BaseActivity activity = (BaseActivity) getActivity();
-        ItemInfoActivity.goTo(item, activity);
+    public void goToItemInfo(Item item, View image) {
+        Fragment fragment = ItemInfoFragment.newInstance(item);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+////            fragment.setSharedElementEnterTransition(new DetailsTransition());
+////            fragment.setEnterTransition(new Fade());
+////            Transition explodeTransform = TransitionInflater.from(getActivity()).
+////                    inflateTransition(android.R.transition.explode);
+////            setExitTransition(explodeTransform);
+////            setExitTransition(new Fade());
+////            fragment.setSharedElementReturnTransition(new DetailsTransition());
+////
+////            Transition changeTransform = TransitionInflater.from(this).
+////                    inflateTransition(R.transition.change_image_transform);
+////            Transition explodeTransform = TransitionInflater.from(this).
+////                    inflateTransition(android.R.transition.explode);
+//
+//            // Setup exit transition on first fragment
+//            Transition changeTransform = TransitionInflater.from(getActivity()).
+//                    inflateTransition(R.transition.change_image_transform);
+//            Transition explodeTransform = TransitionInflater.from(getActivity()).
+//                    inflateTransition(android.R.transition.fade);
+//            setSharedElementReturnTransition(changeTransform);
+////            setExitTransition(explodeTransform);
+//
+//            // Setup enter transition on second fragment
+//            fragment.setSharedElementEnterTransition(changeTransform);
+//            fragment.setEnterTransition(explodeTransform);
+//
+//            // Find the shared element (in Fragment A)
+//
+//            // Add second fragment by replacing first
+//            FragmentTransaction ft = getFragmentManager().beginTransaction()
+//                    .replace(R.id.container, fragment)
+//                    .addToBackStack("transaction")
+//                    .addSharedElement(image, getString(R.string.transition_image_item_info));
+//            // Apply the transaction
+//            ft.commit();
+//        } else {
+////            getFragmentManager().beginTransaction()
+////                    .addToBackStack(null)
+////                    .addSharedElement(image, getString(R.string.transition_image_item_info))
+////                    .replace(R.id.container, fragment)
+////                    .commit();
+//        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragment.setSharedElementEnterTransition(new DetailsTransition());
+            fragment.setEnterTransition(new Fade());
+            setExitTransition(new Fade());
+            fragment.setSharedElementReturnTransition(new DetailsTransition());
+        }
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .addSharedElement(image, getString(R.string.transition_image_item_info))
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
+
     }
+
+
 }

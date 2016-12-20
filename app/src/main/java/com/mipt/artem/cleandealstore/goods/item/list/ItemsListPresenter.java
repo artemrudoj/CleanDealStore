@@ -1,6 +1,8 @@
 package com.mipt.artem.cleandealstore.goods.item.list;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
@@ -60,7 +62,7 @@ public class ItemsListPresenter extends BaseGoodsPresenter {
         addSubscription(subscription);
     }
 
-    public void clickItem(Item item) {
-        mView.goToItemInfo(item);
+    public void clickItem(Item item, View image) {
+        mView.goToItemInfo(item, image);
     }
 }

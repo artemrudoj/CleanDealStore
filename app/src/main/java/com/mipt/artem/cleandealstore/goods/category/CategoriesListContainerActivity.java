@@ -13,8 +13,6 @@ public class CategoriesListContainerActivity extends NavigationDrawerProfileActi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setToolbar(R.string.categories);
-        addHomeProfileButton();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new CategoriesListFragment()).commit();
         }
