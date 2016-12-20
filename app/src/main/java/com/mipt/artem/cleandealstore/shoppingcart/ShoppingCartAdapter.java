@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.Utils;
-import com.mipt.artem.cleandealstore.goods.item.list.ItemsViewHolder;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
 import com.squareup.picasso.Picasso;
 
@@ -19,10 +18,11 @@ import java.util.List;
 public class ShoppingCartAdapter  extends RecyclerView.Adapter<ItemInCartViewHolder> {
 
     private List<ItemInCart> mItems;
-    private ShoppingCartPresenter mPresenter;
+    private ShoppingCartBasePresenter mPresenter;
+    private List<ItemInCart> items;
 
 
-    public ShoppingCartAdapter(List<ItemInCart> list, ShoppingCartPresenter itemsListPresenter) {
+    public ShoppingCartAdapter(List<ItemInCart> list, ShoppingCartBasePresenter itemsListPresenter) {
         this.mItems = list;
         this.mPresenter = itemsListPresenter;
     }
@@ -70,5 +70,26 @@ public class ShoppingCartAdapter  extends RecyclerView.Adapter<ItemInCartViewHol
     @Override
     public int getItemCount() {
         return mItems.size();
+    }
+
+    public void removeItem(int position) {
+        mItems.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public ItemInCart getItemById(int itemId) {
+        if (mItems == null || mItems.size() == 0) {
+            return null;
+        } else {
+            return mItems.get(itemId);
+        }
+    }
+
+    public List<ItemInCart> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemInCart> items) {
+        this.items = items;
     }
 }

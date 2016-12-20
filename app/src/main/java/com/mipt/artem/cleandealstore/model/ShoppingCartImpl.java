@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Created by artem on 21.08.16.
  */
-public class ShoppingCartImpl implements ShoppingCart {
+public class ShoppingCartImpl  {
     List<ItemInCart> mItems = new ArrayList<>();
-    @Override
+
     public ItemInCart addItem(Item item, int count) {
         for (ItemInCart itemInCart : mItems) {
             if (itemInCart.getId() == item.getId()) {
@@ -23,7 +23,7 @@ public class ShoppingCartImpl implements ShoppingCart {
         return newItem;
     }
 
-    @Override
+
     public ItemInCart increaseCount(ItemInCart item) {
         for (ItemInCart itemInCart : mItems) {
             if (itemInCart.getId() == item.getId()) {
@@ -34,7 +34,7 @@ public class ShoppingCartImpl implements ShoppingCart {
         throw new IllegalStateException("can not found item");
     }
 
-    @Override
+
     public ItemInCart decreaseCount(ItemInCart item) {
         for (ItemInCart itemInCart : mItems) {
             if (itemInCart.getId() == item.getId()) {
@@ -48,14 +48,14 @@ public class ShoppingCartImpl implements ShoppingCart {
         throw new IllegalStateException("can not found item");
     }
 
-    @Override
+
     public void deleteItem(ItemInCart item) {
         if (!mItems.remove(item)) {
             throw new IllegalStateException("can not found item");
         }
     }
 
-    @Override
+
     public List<ItemInCart> getAll() {
         return mItems;
     }

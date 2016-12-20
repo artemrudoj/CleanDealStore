@@ -23,7 +23,7 @@ public class GoodsModel {
     protected ApiInterface apiInterface;
 
     @Inject
-    protected ShoppingCart mShoppingCart;
+    protected ShoppingCartWithNetworkImpl mShoppingCart;
 
     @Inject
     @Named(Const.UI_THREAD)

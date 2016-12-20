@@ -4,6 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mipt.artem.cleandealstore.goods.category.info.CategoryWithDetailInfoHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by artem on 15.08.16.
@@ -95,4 +99,15 @@ public class Category implements Parcelable {
             return new Category[size];
         }
     };
+
+    public static List<CategoryWithDetailInfoHolder> convertListToHolder(List<Category> data) {
+        if (data == null) {
+            return null;
+        };
+        List<CategoryWithDetailInfoHolder> list = new ArrayList<>();
+        for (Category category : data) {
+            list.add(new CategoryWithDetailInfoHolder(category));
+        }
+        return list;
+    }
 }

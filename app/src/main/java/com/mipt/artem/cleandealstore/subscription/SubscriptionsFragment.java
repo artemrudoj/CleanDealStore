@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.BaseFragment;
 import com.mipt.artem.cleandealstore.base.Presenter;
+import com.mipt.artem.cleandealstore.base.ToolbarFragment;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
@@ -18,7 +19,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubscriptionsFragment extends BaseFragment implements SubscriptionView {
+public class SubscriptionsFragment extends ToolbarFragment implements SubscriptionView {
 
 
     public SubscriptionsFragment() {

@@ -1,8 +1,7 @@
 package com.mipt.artem.cleandealstore.di;
 
 
-import com.mipt.artem.cleandealstore.model.ShoppingCart;
-import com.mipt.artem.cleandealstore.model.ShoppingCartImpl;
+import com.mipt.artem.cleandealstore.model.ShoppingCartWithNetworkImpl;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
 import com.mipt.artem.cleandealstore.rest.ApiModule;
 
@@ -26,8 +25,10 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    ShoppingCart provideShoppingCartManager() {
-        return new ShoppingCartImpl();
+    ShoppingCartWithNetworkImpl provideShoppingCartManager(ApiInterface apiInterface,
+                                                           @Named(Const.UI_THREAD)Scheduler uischeduler,
+                                                           @Named(Const.IO_THREAD)Scheduler ioscheduler) {
+        return new ShoppingCartWithNetworkImpl(apiInterface, uischeduler, ioscheduler);
     }
 
     @Provides

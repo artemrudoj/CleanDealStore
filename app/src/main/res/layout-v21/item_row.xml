@@ -9,7 +9,6 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/image_item_iv"
-            android:transitionName="transition_image_item_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/name_item_tv"/>

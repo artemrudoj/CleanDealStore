@@ -1,9 +1,12 @@
 package com.mipt.artem.cleandealstore.rest;
 
+import com.mipt.artem.cleandealstore.model.ItemInCart;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 import retrofit2.http.Field;
@@ -20,9 +23,37 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("/api/content/get_subcategories/")
-    Observable<List<Category>> getSubcategories(@Field("category") Integer subcategory);
+    Observable<List<Category>> getSubcategories(@Field("category")Integer subcategory);
 
     @GET("/api/content/get_items/")
     Observable<ItemsHolder> getItems(@Query("name_full") String name,
                                      @Query("category") Integer subcategoryId);
+
+    @FormUrlEncoded
+    @POST("/api/content/get_item_by_id/")
+    Observable<Object> getItemById(@Field("id")Integer id);
+
+    @FormUrlEncoded
+    @POST("/api/content/get_parent_catigories/")
+    Observable<List<Category>> getParentCategories(@Field("id")Integer id);
+
+
+    @GET("/api/order/make_order/")
+    Observable<Object> makeOrder();
+
+    @FormUrlEncoded
+    @POST("/api/order/edit_in_rack/")
+    Observable<Map<Integer, ItemInCart>> editItemInShoppingCart(@Field("id") Integer id,
+                                              @Field("in_rack") Boolean isInShoppingCart,
+                                              @Field("count") Integer count,
+                                              @Field("people_count") Integer peopleCount);
+    @FormUrlEncoded
+    @POST("/api/order/delete_from_rack/")
+    Observable<Map<Integer, ItemInCart>> deleteItemFromShoppingCart(@Field("id") Integer id);
+
+
+    @POST("/api/order/get_rack/")
+    Observable<Map<Integer, ItemInCart>> getShoppingCart();
+
+
 }

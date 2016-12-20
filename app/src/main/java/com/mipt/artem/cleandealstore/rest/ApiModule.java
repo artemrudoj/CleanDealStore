@@ -42,7 +42,7 @@ public final class ApiModule {
 
         if (ENABLE_LOG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClientBuilder.addInterceptor(interceptor);
         }
 
@@ -57,8 +57,8 @@ public final class ApiModule {
 
         builder.client(httpClient);
 
-        ApiInterface apiInterface = builder.build().create(ApiInterface.class);
-        return apiInterface;
+        return builder.build().create(ApiInterface.class);
+
     }
 
 }

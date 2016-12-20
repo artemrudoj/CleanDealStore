@@ -2,7 +2,11 @@ package com.mipt.artem.cleandealstore.model;
 
 import android.os.Parcel;
 
+import com.google.gson.annotations.SerializedName;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by artem on 21.08.16.
@@ -29,18 +33,20 @@ public class ItemInCart extends Item {
         return mCount;
     }
 
-    public int getmLocalId() {
-        return mLocalId;
-    }
 
-    public void setmLocalId(int mLocalId) {
-        this.mLocalId = mLocalId;
-    }
-
+    @SerializedName("count")
     private int mCount;
-    private int mLocalId;
 
+    @SerializedName("in_rack")
+    private boolean isInShoppingCart;
 
+    public boolean isInShoppingCart() {
+        return isInShoppingCart;
+    }
+
+    public void setInShoppingCart(boolean inShoppingCart) {
+        isInShoppingCart = inShoppingCart;
+    }
 
     public int getCount() {
         return mCount;
@@ -48,5 +54,15 @@ public class ItemInCart extends Item {
 
     public void setmCount(int mCount) {
         this.mCount = mCount;
+    }
+
+    public static List<ItemInCart> filterByBasket(List<ItemInCart> items, boolean isInShoppingCart) {
+        List<ItemInCart> itemInCarts = new ArrayList<>();
+        for (ItemInCart item : items) {
+            if (item.isInShoppingCart() == isInShoppingCart) {
+                itemInCarts.add(item);
+            }
+        }
+        return itemInCarts;
     }
 }

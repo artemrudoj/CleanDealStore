@@ -41,4 +41,5 @@
     <string name="text_catalog">Каталог</string>
     <string name="text_subscription">Подписка</string>
     <string name="one_time_delivery">Разовая</string>
+    <string name="transition_image_item_info">transition_image_item_info</string>
 </resources>

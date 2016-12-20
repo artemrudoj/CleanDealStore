@@ -5,13 +5,28 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
-
-    <TextView
-        android:padding="16dp"
-        android:layout_gravity="center"
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="blabla"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="blabla"/>
+        <Button
+            android:layout_alignParentRight="true"
+            android:id="@+id/show_detail_info_btn"
+            android:layout_gravity="right|center_vertical"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/textView"
+            android:id="@+id/info_container_rv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

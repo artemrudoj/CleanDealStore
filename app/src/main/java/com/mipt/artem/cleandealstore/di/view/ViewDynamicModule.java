@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore.di.view;
 
 
 
+import com.mipt.artem.cleandealstore.di.Const;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListPresenter;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListView;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
@@ -10,10 +11,15 @@ import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListView;
-import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartPresenter;
+import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartBasePresenter;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartView;
+import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryPresenter;
+import com.mipt.artem.cleandealstore.shoppingcart.subscription.SubscriptionInShoppingCartPresenter;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionPresenter;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionView;
+
+import javax.inject.Named;
+import javax.inject.Qualifier;
 
 import dagger.Module;
 import dagger.Provides;
@@ -64,8 +70,13 @@ public class ViewDynamicModule {
     }
 
     @Provides
-    ShoppingCartPresenter provideShoppingCartPresenter() {
-        return new ShoppingCartPresenter(mShoppingCartView);
+    OneTimeDeliveryPresenter provideOneTimeDeliveryPresenter() {
+        return new OneTimeDeliveryPresenter(mShoppingCartView);
+    }
+
+    @Provides
+    SubscriptionInShoppingCartPresenter provideSubscriptionInShoppingCartPresenter() {
+        return new SubscriptionInShoppingCartPresenter(mShoppingCartView);
     }
 
     @Provides

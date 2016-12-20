@@ -2,20 +2,41 @@ package com.mipt.artem.cleandealstore.shoppingcart;
 
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryFragment;
+import com.mipt.artem.cleandealstore.base.BaseFragment;
+import com.mipt.artem.cleandealstore.base.NoToolbarFragment;
+import com.mipt.artem.cleandealstore.base.Presenter;
+import com.mipt.artem.cleandealstore.base.ToolbarFragment;
+import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryInShoppingCartFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.subscription.SubscriptionFragment;
+import com.mipt.artem.cleandealstore.ui.CustomFragmentPagerAdapter;
 
-public class ShoppingCartContainerFragment extends Fragment {
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class ShoppingCartContainerFragment extends ToolbarFragment implements ItemsUpdateListener {
+
+    private PagerAdapter mAdapter;
+
+    @Bind(R.id.pager)
+    ViewPager mViewPager;
+    @Bind(R.id.tab_layout)
+    TabLayout mTabLayout;
 
 
     public ShoppingCartContainerFragment() {
@@ -27,20 +48,23 @@ public class ShoppingCartContainerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_subscription));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.one_time_delivery));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        ButterKnife.bind(this, view);
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getChildFragmentManager());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.text_subscription));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.one_time_delivery));
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        setToolbar(getString(R.string.trash));
+        enableDrawer(true);
+
+        mAdapter = new PagerAdapter
+                (getChildFragmentManager(), R.id.pager);
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                mViewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -56,21 +80,42 @@ public class ShoppingCartContainerFragment extends Fragment {
         return view;
     }
 
-    public class PagerAdapter extends FragmentStatePagerAdapter {
+    @Override
+    public void onUpdateItems(List<ItemInCart> items) {
 
-        public PagerAdapter(FragmentManager fm) {
-            super(fm);
+        int count = mAdapter.getCount();
+        for (int i = 0; i < count; i++) {
+            Fragment fragment = mAdapter.getItem(i);
+            if (fragment instanceof ItemsUpdateListener) {
+                ((ItemsUpdateListener)fragment).onUpdateItems(items);
+            }
+        }
+    }
+
+    @Override
+    protected Presenter getPresenter() {
+        return null;
+    }
+
+
+    public class PagerAdapter extends CustomFragmentPagerAdapter {
+
+        public PagerAdapter(FragmentManager fm, int containerId) {
+            super(fm,containerId);
         }
 
         @Override
         public Fragment getItem(int position) {
-
+            Fragment fragment = getFragmentByPosition(position);
+            if (fragment != null) {
+                return fragment;
+            }
             switch (position) {
                 case 0:
                     SubscriptionFragment tab1 = new SubscriptionFragment();
                     return tab1;
                 case 1:
-                    OneTimeDeliveryFragment tab2 = new OneTimeDeliveryFragment();
+                    OneTimeDeliveryInShoppingCartFragment tab2 = new OneTimeDeliveryInShoppingCartFragment();
                     return tab2;
                 default:
                     return null;

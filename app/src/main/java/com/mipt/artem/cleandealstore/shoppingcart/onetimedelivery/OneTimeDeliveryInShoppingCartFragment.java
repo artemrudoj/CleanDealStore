@@ -1,14 +1,14 @@
-package com.mipt.artem.cleandealstore.shoppingcart.subscription;
+package com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
@@ -22,21 +22,36 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class SubscriptionFragment extends ShoppingCartBaseFragment {
+
+public class OneTimeDeliveryInShoppingCartFragment extends ShoppingCartBaseFragment {
 
     @Inject
-    SubscriptionInShoppingCartPresenter mPresenter;
+    OneTimeDeliveryPresenter mPresenter;
 
-
-    public SubscriptionFragment() {
+    public OneTimeDeliveryInShoppingCartFragment() {
         // Required empty public constructor
     }
 
     @Override
     protected int getSwipeDirs() {
-        return ItemTouchHelper.RIGHT;
+        return ItemTouchHelper.LEFT;
     }
 
+
+    @Override
+    protected ShoppingCartAdapter createAdapter(List<ItemInCart> data) {
+        return new ShoppingCartAdapter(ItemInCart.filterByBasket(data, false), mPresenter);
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ViewComponent viewComponent = DaggerViewComponent.builder()
+                .viewDynamicModule(new ViewDynamicModule(this))
+                .build();
+        viewComponent.inject(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,17 +61,8 @@ public class SubscriptionFragment extends ShoppingCartBaseFragment {
     }
 
     @Override
-    protected ShoppingCartAdapter createAdapter(List<ItemInCart> data) {
-        return new ShoppingCartAdapter(ItemInCart.filterByBasket(data, true), mPresenter);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ViewComponent viewComponent = DaggerViewComponent.builder()
-                .viewDynamicModule(new ViewDynamicModule(this))
-                .build();
-        viewComponent.inject(this);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

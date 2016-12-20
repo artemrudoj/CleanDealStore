@@ -17,7 +17,7 @@ public class ShoppingCartActivity extends NavigationDrawerProfileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setToolbar(R.string.shoppingCart);
+//        setToolbar(R.string.shoppingCart);
         addHomeProfileButton();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new ShoppingCartContainerFragment()).commit();
