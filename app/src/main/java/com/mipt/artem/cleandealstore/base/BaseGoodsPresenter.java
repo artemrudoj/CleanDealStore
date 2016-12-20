@@ -3,7 +3,7 @@ package com.mipt.artem.cleandealstore.base;
 
 
 import com.mipt.artem.cleandealstore.model.GoodsModel;
-import com.mipt.artem.cleandealstore.model.ShoppingCart;
+import com.mipt.artem.cleandealstore.model.ShoppingCartWithNetworkImpl;
 
 import javax.inject.Inject;
 
@@ -16,7 +16,7 @@ public abstract class BaseGoodsPresenter implements Presenter {
     protected GoodsModel model;
 
     @Inject
-    protected ShoppingCart mShoppingCart;
+    protected ShoppingCartWithNetworkImpl mShoppingCart;
 
 
 

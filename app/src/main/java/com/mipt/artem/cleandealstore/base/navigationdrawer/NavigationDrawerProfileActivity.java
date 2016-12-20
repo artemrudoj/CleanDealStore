@@ -17,7 +17,8 @@ import android.widget.ListView;
 
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.ToolbarActivity;
+import com.mipt.artem.cleandealstore.base.BaseActivity;
+import com.mipt.artem.cleandealstore.base.NavigationDrawerController;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
@@ -26,17 +27,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by artem on 22.05.16.
  */
-public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity implements AdapterView.OnItemClickListener {
+public abstract class NavigationDrawerProfileActivity  extends BaseActivity
+        implements AdapterView.OnItemClickListener, NavigationDrawerController {
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mRecordsListView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @Bind(R.id.left_drawer)
+    ListView mRecordsListView;
+    @Bind(R.id.navigation_bottom)
+    BottomNavigationView mBottomNavigationView;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationDrawerListBaseAdapter mNavigationDrawerAdapter;
-    private BottomNavigationView mBottomNavigationView;
+
 
 
 
@@ -45,6 +54,7 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer_profile);
+        ButterKnife.bind(this);
         initViews();
 
 
@@ -67,7 +77,6 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
     }
 
     private void initViews() {
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation_bottom) ;
         mBottomNavigationView.inflateMenu(R.menu.bottom_navigtion_main);
         final Map<Integer, TapHandler> idActionMatcher = new HashMap<>();
         idActionMatcher.put(R.id.action_subscription, new TapHandler() {
@@ -106,7 +115,7 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
                 TapHandler tapHandler = idActionMatcher.get(item.getItemId());
                 if (tapHandler != null) {
                     tapHandler.onTap();
-                    setToolbar(item.getTitle().toString());
+//                    setToolbar(item.getTitle().toString());
                 } else {
                     throw new IllegalArgumentException("can not find correct tap handler for id");
                 }
@@ -114,8 +123,6 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
             }
         });
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mRecordsListView = (ListView) findViewById(R.id.left_drawer);
         mRecordsListView.setOnItemClickListener(this);
 
         Menu menu = mBottomNavigationView.getMenu();
@@ -129,7 +136,11 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                if (mDrawerLayout.isEnabled()) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                } else {
+                    onBackPressed();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -144,6 +155,7 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
     public void addActionBarDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
     }
 
 
@@ -159,13 +171,24 @@ public abstract class NavigationDrawerProfileActivity  extends ToolbarActivity i
         setTitle(item.getText());
     }
 
-
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+    public void enableNavigationDrawer(boolean shouldEnable) {
+        mDrawerLayout.setEnabled(shouldEnable);
+        if (shouldEnable) {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        } else {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
     }
 
 
+    @Override
+    public void onBackPressed() {
+        android.app.FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

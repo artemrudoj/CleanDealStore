@@ -1,21 +1,20 @@
-package com.mipt.artem.cleandealstore.base.recycledviews;
+package com.mipt.artem.cleandealstore.base;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
-import com.mipt.artem.cleandealstore.base.BaseFragment;
-import com.mipt.artem.cleandealstore.base.ToolbarFragment;
+import com.mipt.artem.cleandealstore.base.recycledviews.RecycledBaseView;
 import com.mipt.artem.cleandealstore.ui.ProgressBarBuilder;
 
 /**
- * Created by artem on 20.08.16.
+ * Created by artem on 20.12.16.
  */
-abstract public class RecyclerViewBaseFragment<T> extends ToolbarFragment implements RecycledBaseView<T>{
+
+public abstract class RecyclerViewWithoutToolbarFragment<T> extends NoToolbarFragment implements RecycledBaseView<T> {
 
     private ProgressBarBuilder mFragmentProgressBarHelper;
 
-    protected void initProgressBarBuilder(View hidedView, View rootView, Context context) {
+    protected void initProgressBarBuilder(android.view.View hidedView, android.view.View rootView, Context context) {
         mFragmentProgressBarHelper = new ProgressBarBuilder(hidedView,
                 context, (ViewGroup) rootView);
     }
