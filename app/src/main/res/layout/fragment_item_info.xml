@@ -112,4 +112,52 @@
         app:layout_anchorGravity="bottom|right|end"
         tools:visibility="visible"
         />
+    <io.codetail.widget.RevealFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom"
+        app:layout_anchor="@id/nested_sv">
+
+        <LinearLayout
+            android:id="@+id/toolbar_footer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:background="@android:color/white"
+                android:text="@string/to_one_time_delivery"
+                android:scaleType="center"
+                android:textColor="?colorPrimaryDark"
+                style="?android:attr/borderlessButtonStyle"
+                android:src="@drawable/ic_catalog_white_24dp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="@string/to_subscription"
+                    android:scaleType="center"
+                    android:background="?colorAccent"
+                    android:textColor="@android:color/white"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:src="@drawable/ic_catalog_white_24dp" />
+
+
+
+
+
+            </LinearLayout>
+
+
+    </io.codetail.widget.RevealFrameLayout>
 </android.support.design.widget.CoordinatorLayout>

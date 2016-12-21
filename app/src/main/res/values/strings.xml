@@ -42,4 +42,6 @@
     <string name="text_subscription">Подписка</string>
     <string name="one_time_delivery">Разовая</string>
     <string name="transition_image_item_info">transition_image_item_info</string>
+    <string name="to_subscription">в подписку</string>
+    <string name="to_one_time_delivery">в разовую доставку</string>
 </resources>

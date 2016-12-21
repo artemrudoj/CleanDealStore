@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.BaseActivity;
 import com.mipt.artem.cleandealstore.base.NavigationDrawerController;
+import com.mipt.artem.cleandealstore.base.OnBackPressedListener;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by artem on 22.05.16.
  */
 public abstract class NavigationDrawerProfileActivity  extends BaseActivity
-        implements AdapterView.OnItemClickListener, NavigationDrawerController {
+        implements AdapterView.OnItemClickListener, NavigationDrawerController, OnBackPressedListener.controller {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
@@ -46,9 +47,12 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationDrawerListBaseAdapter mNavigationDrawerAdapter;
 
+    private OnBackPressedListener.handler mBackPressedListener;
 
-
-
+    @Override
+    public void addOnBackPressedListener(OnBackPressedListener.handler listener) {
+        mBackPressedListener = listener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +188,11 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        if (mBackPressedListener != null) {
+            if (mBackPressedListener.handleBackPressed()) {
+                return;
+            }
+        }
         android.app.FragmentManager fm = getFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             fm.popBackStack();

@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
@@ -21,14 +22,18 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.konifar.fab_transformation.FabTransformation;
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.Utils;
 import com.mipt.artem.cleandealstore.base.NoToolbarFragment;
+import com.mipt.artem.cleandealstore.base.OnBackPressedListener;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
@@ -50,7 +55,8 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView, View.OnClickListener {
+public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView, View.OnClickListener,
+        OnBackPressedListener.handler {
     private static final String TAG = "ItemInfoFragment";
     private Item mItem;
     @Inject
@@ -75,14 +81,25 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
     TextView mAboutTextView;
 
 
+    @Bind(R.id.toolbar_footer)
+    View mToolbarFooter;
+
     @Bind(R.id.add_to_trash_fab)
     FloatingActionButton mAddToShoppingFloatingActionButton;
+
+    @Bind(R.id.nested_sv)
+    NestedScrollView mScrollView;
 
     @Bind(R.id.app_bl)
     AppBarLayout mAppBarLayout;
 
     @Bind(R.id.collapse_tl)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
+
+
+    boolean isTransforming;
+
+    OnBackPressedListener.controller mBackPressedListenerController;
 
     public ItemInfoFragment() {
         // Required empty public constructor
@@ -152,6 +169,7 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView: ");
+        attachOnBackPressedListener();
         View view =  inflater.inflate(R.layout.fragment_item_info, container, false);
         ButterKnife.bind(this, view);
         populateView();
@@ -173,8 +191,45 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
         mCollapsingToolbarLayout.setTitle(mItem.getNameFull());
         mCollapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(getActivity(), android.R.color.white));
-        mAddToShoppingFloatingActionButton.setOnClickListener(this);
+        mAddToShoppingFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FabTransformation.with(mAddToShoppingFloatingActionButton).transformTo(mToolbarFooter);
+            }
+        });
+        mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                transformToolbarToFab();
+            }
+        });
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                transformToolbarToFab();
+            }
+        });
+
     }
+
+    private  void transformToolbarToFab() {
+        if (mAddToShoppingFloatingActionButton.getVisibility() != View.VISIBLE && !isTransforming) {
+            FabTransformation.with(mAddToShoppingFloatingActionButton)
+                    .setListener(new FabTransformation.OnTransformListener() {
+                        @Override
+                        public void onStartTransform() {
+                            isTransforming = true;
+                        }
+
+                        @Override
+                        public void onEndTransform() {
+                            isTransforming = false;
+                        }
+                    })
+                    .transformFrom(mToolbarFooter);
+        }
+    }
+
 
     @Override
     protected Presenter getPresenter() {
@@ -210,6 +265,35 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
                 ItemInfoFragment.this);
     }
 
+    @Override
+    public boolean handleBackPressed() {
+        if (mAddToShoppingFloatingActionButton.getVisibility() != View.VISIBLE) {
+            FabTransformation.with(mAddToShoppingFloatingActionButton).transformFrom(mToolbarFooter);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    void attachOnBackPressedListener() {
+        Activity activity = getActivity();
+        if (activity != null && activity instanceof OnBackPressedListener.controller) {
+            mBackPressedListenerController = (OnBackPressedListener.controller) activity;
+            mBackPressedListenerController.addOnBackPressedListener(this);
+        } else {
+            throw new IllegalArgumentException("activity should implement OnBackPressedListener.controller");
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mBackPressedListenerController != null) {
+            mBackPressedListenerController.addOnBackPressedListener(null);
+            mBackPressedListenerController = null;
+        }
+    }
 
     public static class AdditionalInfoAdapter extends BaseAdapter {
 
@@ -253,5 +337,8 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
             return convertView;
         }
     }
+
+
+
 
 }
