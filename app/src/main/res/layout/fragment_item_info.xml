@@ -108,9 +108,7 @@
         android:tint="@android:color/white"
         app:backgroundTint="?colorAccent"
         app:layout_anchor="@id/nested_sv"
-        android:visibility="invisible"
         app:layout_anchorGravity="bottom|right|end"
-        tools:visibility="visible"
         />
     <io.codetail.widget.RevealFrameLayout
         android:layout_width="match_parent"
@@ -127,6 +125,7 @@
             tools:visibility="visible"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/add_to_one_time_del_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -140,6 +139,7 @@
                 android:src="@drawable/ic_catalog_white_24dp" />
 
                 <Button
+                    android:id="@+id/add_to_sub_btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"

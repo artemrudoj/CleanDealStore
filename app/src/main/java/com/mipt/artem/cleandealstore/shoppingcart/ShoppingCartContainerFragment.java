@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore.shoppingcart;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,12 +33,15 @@ import butterknife.ButterKnife;
 public class ShoppingCartContainerFragment extends ToolbarFragment implements ItemsUpdateListener {
 
     private PagerAdapter mAdapter;
+    public static final String IS_OPEN_SUBSCRIPTION = "ShoppingCartContainerFragment.IS_OPEN_SUBSCRIPTION";
 
     @Bind(R.id.pager)
     ViewPager mViewPager;
     @Bind(R.id.tab_layout)
     TabLayout mTabLayout;
 
+
+    boolean isOpenSubscription = true;
 
     public ShoppingCartContainerFragment() {
         // Required empty public constructor
@@ -77,6 +81,10 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
 
             }
         });
+        //go to one time delivery
+        if (!isOpenSubscription) {
+            mViewPager.setCurrentItem(1);
+        }
         return view;
     }
 
@@ -97,6 +105,23 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
         return null;
     }
 
+    public static ShoppingCartContainerFragment newInstance(boolean isInSubscription) {
+        ShoppingCartContainerFragment fragment = new ShoppingCartContainerFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(IS_OPEN_SUBSCRIPTION, isInSubscription);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            isOpenSubscription = args.getBoolean(IS_OPEN_SUBSCRIPTION, true);
+        }
+    }
 
     public class PagerAdapter extends CustomFragmentPagerAdapter {
 

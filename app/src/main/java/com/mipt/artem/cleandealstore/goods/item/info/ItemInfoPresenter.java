@@ -18,11 +18,16 @@ public class ItemInfoPresenter  extends BaseGoodsPresenter {
         this.mItemInfoView = mItemInfoView;
     }
 
-    public void AddToShoppingCart(Item item, int count) {
-        Subscription subscription = mShoppingCart.addItem(item, count).subscribe(new Observer<Object>() {
+    public void AddToShoppingCart(Item item, int count, final boolean isToSubscription) {
+        Subscription subscription = mShoppingCart.addItem(item, count, isToSubscription).subscribe(new Observer<Object>() {
             @Override
             public void onCompleted() {
 //                mView.stopLoading();
+                if(isToSubscription) {
+                    mItemInfoView.successfullyAddedOnSubscription();
+                } else {
+                    mItemInfoView.successfullyAddedOnOneTimeDelivery();
+                }
             }
 
             @Override

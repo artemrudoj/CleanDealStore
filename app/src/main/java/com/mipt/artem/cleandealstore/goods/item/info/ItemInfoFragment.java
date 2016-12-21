@@ -22,11 +22,9 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.konifar.fab_transformation.FabTransformation;
@@ -40,7 +38,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.rest.responcedata.ExtraInfo;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
-import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartActivity;
+import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
 import com.squareup.picasso.Picasso;
 
 
@@ -51,11 +49,12 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView, View.OnClickListener,
+public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
         OnBackPressedListener.handler {
     private static final String TAG = "ItemInfoFragment";
     private Item mItem;
@@ -95,6 +94,27 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
 
     @Bind(R.id.collapse_tl)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
+//
+//    @Bind(R.id.add_to_one_time_del_btn)
+//    Button mAddToOneDeliveryButton;
+//
+//    @Bind(R.id.add_to_sub_btn)
+//    Button mAddToSubscriptionButton;
+
+
+    @OnClick(R.id.add_to_one_time_del_btn)
+    void addToOneTimeDelivery(View view) {
+        PickNumberOfItemsAllertDialog.showDialog(getActivity().getSupportFragmentManager(),
+                ItemInfoFragment.this);
+    }
+
+    @OnClick(R.id.add_to_sub_btn)
+    void addToSubscription(View view) {
+        mPresenter.AddToShoppingCart(mItem, 1, true);
+    }
+
+
+
 
 
     boolean isTransforming;
@@ -237,8 +257,31 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
     }
 
     @Override
-    public void goToShoppingCart() {
-        ShoppingCartActivity.goTo(getActivity());
+    public void goToShoppingCart(boolean isInSubscription) {
+        getFragmentManager().beginTransaction().addToBackStack(null).
+                replace(R.id.container, ShoppingCartContainerFragment.newInstance(isInSubscription)).commit();
+    }
+
+    @Override
+    public void successfullyAddedOnSubscription() {
+        Snackbar.make(mCollapsingToolbarLayout, R.string.added_to_subscription, Snackbar.LENGTH_LONG)
+                .setAction(R.string.go_to, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToShoppingCart(true);
+                    }
+                }).show();
+    }
+
+    @Override
+    public void successfullyAddedOnOneTimeDelivery() {
+        Snackbar.make(mCollapsingToolbarLayout, R.string.added_to_one_time_delivery, Snackbar.LENGTH_LONG)
+                .setAction(R.string.go_to, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToShoppingCart(false);
+                    }
+                }).show();
     }
 
     @Override
@@ -247,23 +290,11 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
             return;
         }
         if (requestCode == PickNumberOfItemsAllertDialog.PICK_NUMBER_ACTION) {
-            mPresenter.AddToShoppingCart(mItem, data.getExtras().getInt(PickNumberOfItemsAllertDialog.EXTRA_NUMBER));
-            Snackbar.make(mCollapsingToolbarLayout, R.string.added, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.toShoppingCart, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            goToShoppingCart();
-                        }
-                    }).show();
+            mPresenter.AddToShoppingCart(mItem, data.getExtras().getInt(PickNumberOfItemsAllertDialog.EXTRA_NUMBER), false);
         }
     }
 
 
-    @Override
-    public void onClick(View view) {
-        PickNumberOfItemsAllertDialog.showDialog(getActivity().getSupportFragmentManager(),
-                ItemInfoFragment.this);
-    }
 
     @Override
     public boolean handleBackPressed() {

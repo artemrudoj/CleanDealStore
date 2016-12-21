@@ -44,4 +44,7 @@
     <string name="transition_image_item_info">transition_image_item_info</string>
     <string name="to_subscription">в подписку</string>
     <string name="to_one_time_delivery">в разовую доставку</string>
+    <string name="added_to_one_time_delivery">Добавлено в разовую доставку</string>
+    <string name="added_to_subscription">Добавлено в подписку</string>
+    <string name="go_to">перейти</string>
 </resources>

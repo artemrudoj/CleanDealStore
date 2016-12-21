@@ -38,9 +38,9 @@ public class ShoppingCartWithNetworkImpl  {
     }
 
 
-    public Observable<Map<Integer, ItemInCart>> addItem(Item item, int count) {
+    public Observable<Map<Integer, ItemInCart>> addItem(Item item, int count, boolean isInSubscription) {
         return mApiInterface
-                .editItemInShoppingCart(item.getId(), true, 1, null)
+                .editItemInShoppingCart(item.getId(), isInSubscription, count, null)
                 .compose(this.applySchedulers());
     }
 
