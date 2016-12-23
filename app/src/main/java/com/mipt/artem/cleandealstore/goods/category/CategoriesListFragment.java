@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.Presenter;
@@ -17,8 +18,10 @@ import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.goods.category.info.CategoryWithDetailInfoHolder;
+import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
+import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 
 import java.util.List;
 
@@ -110,6 +113,12 @@ public class CategoriesListFragment extends RecyclerViewBaseFragment<Category> i
         }
         getFragmentManager().beginTransaction().replace(R.id.container, fragment)
                 .addToBackStack(null).commit();
+    }
+
+    @Override
+    public void goToItemInfo(Item item, ImageView image) {
+        ItemInfoFragment.goToWithSharedElementTransitionInFragment(item, this,
+                getActivity(), image, R.id.container);
     }
 
     @Override

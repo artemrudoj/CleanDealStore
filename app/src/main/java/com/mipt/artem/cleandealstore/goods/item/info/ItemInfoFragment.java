@@ -4,6 +4,7 @@ package com.mipt.artem.cleandealstore.goods.item.info;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,10 +13,12 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Log;
 import android.util.Pair;
@@ -39,6 +42,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.rest.responcedata.ExtraInfo;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
+import com.mipt.artem.cleandealstore.ui.DetailsTransition;
 import com.squareup.picasso.Picasso;
 
 
@@ -369,7 +373,23 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
         }
     }
 
+    public static void goToWithSharedElementTransitionInFragment(Item item, Fragment currentFragment,
+                                                                 FragmentActivity activity, View image, int containerId) {
+        Fragment fragment = ItemInfoFragment.newInstance(item);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragment.setSharedElementEnterTransition(new DetailsTransition());
+            fragment.setEnterTransition(new Fade());
+            currentFragment.setExitTransition(new Fade());
+            fragment.setSharedElementReturnTransition(new DetailsTransition());
+        }
 
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .addSharedElement(image, activity.getString(R.string.transition_image_item_info))
+                .replace(containerId, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
 
 }

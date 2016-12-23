@@ -136,63 +136,8 @@ public class ItemsListFragment extends RecyclerViewBaseFragment<Item> implements
 
     @Override
     public void goToItemInfo(Item item, View image) {
-        Fragment fragment = ItemInfoFragment.newInstance(item);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-////            fragment.setSharedElementEnterTransition(new DetailsTransition());
-////            fragment.setEnterTransition(new Fade());
-////            Transition explodeTransform = TransitionInflater.from(getActivity()).
-////                    inflateTransition(android.R.transition.explode);
-////            setExitTransition(explodeTransform);
-////            setExitTransition(new Fade());
-////            fragment.setSharedElementReturnTransition(new DetailsTransition());
-////
-////            Transition changeTransform = TransitionInflater.from(this).
-////                    inflateTransition(R.transition.change_image_transform);
-////            Transition explodeTransform = TransitionInflater.from(this).
-////                    inflateTransition(android.R.transition.explode);
-//
-//            // Setup exit transition on first fragment
-//            Transition changeTransform = TransitionInflater.from(getActivity()).
-//                    inflateTransition(R.transition.change_image_transform);
-//            Transition explodeTransform = TransitionInflater.from(getActivity()).
-//                    inflateTransition(android.R.transition.fade);
-//            setSharedElementReturnTransition(changeTransform);
-////            setExitTransition(explodeTransform);
-//
-//            // Setup enter transition on second fragment
-//            fragment.setSharedElementEnterTransition(changeTransform);
-//            fragment.setEnterTransition(explodeTransform);
-//
-//            // Find the shared element (in Fragment A)
-//
-//            // Add second fragment by replacing first
-//            FragmentTransaction ft = getFragmentManager().beginTransaction()
-//                    .replace(R.id.container, fragment)
-//                    .addToBackStack("transaction")
-//                    .addSharedElement(image, getString(R.string.transition_image_item_info));
-//            // Apply the transaction
-//            ft.commit();
-//        } else {
-////            getFragmentManager().beginTransaction()
-////                    .addToBackStack(null)
-////                    .addSharedElement(image, getString(R.string.transition_image_item_info))
-////                    .replace(R.id.container, fragment)
-////                    .commit();
-//        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragment.setSharedElementEnterTransition(new DetailsTransition());
-            fragment.setEnterTransition(new Fade());
-            setExitTransition(new Fade());
-            fragment.setSharedElementReturnTransition(new DetailsTransition());
-        }
-
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .addSharedElement(image, getString(R.string.transition_image_item_info))
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit();
+        ItemInfoFragment.goToWithSharedElementTransitionInFragment(item, this,
+                getActivity(), image, R.id.container);
 
     }
 

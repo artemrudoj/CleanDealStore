@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.mipt.artem.cleandealstore.R;
+import com.mipt.artem.cleandealstore.goods.category.CategoriesListPresenter;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
 import java.util.List;
@@ -20,9 +20,11 @@ import java.util.List;
 public class CategoriesShortInfoAdapter extends RecyclerView.Adapter<CategoriesShortInfoAdapter.ViewHolder> {
 
     List<Category> items;
+    private CategoriesListPresenter mPresenter;
 
-    public CategoriesShortInfoAdapter(List<Category> list) {
+    public CategoriesShortInfoAdapter(List<Category> list, CategoriesListPresenter presenter) {
         items = list;
+        mPresenter = presenter;
     }
 
 
@@ -34,7 +36,9 @@ public class CategoriesShortInfoAdapter extends RecyclerView.Adapter<CategoriesS
 
     @Override
     public void onBindViewHolder(CategoriesShortInfoAdapter.ViewHolder holder, int position) {
-        holder.text.setText(items.get(position).getName());
+        Category category = items.get(position);
+        holder.text.setText(category.getName());
+        holder.itemView.setOnClickListener(v -> mPresenter.clickCategory(category));
     }
 
 
@@ -45,14 +49,10 @@ public class CategoriesShortInfoAdapter extends RecyclerView.Adapter<CategoriesS
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView text;
-        private Button button;
-        private RecyclerView recyclerView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.textView);
-            button = (Button) itemView.findViewById(R.id.show_detail_info_btn);
-            recyclerView = (RecyclerView) itemView.findViewById(R.id.info_container_rv);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore.goods.category;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 
 import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
@@ -134,5 +135,9 @@ public class CategoriesListPresenter extends BaseGoodsPresenter {
         categoryWithDetailInfoHolder.setDetailShown(true);
         holder.initRecyclerView(categories);
         holder.recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void clickItemShortInfo(Item item, ImageView image) {
+        mView.goToItemInfo(item, image);
     }
 }

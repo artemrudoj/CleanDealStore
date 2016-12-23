@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mipt.artem.cleandealstore.R;
@@ -24,6 +28,7 @@ import java.util.List;
 public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>{
     private CategoriesListPresenter mPresenter;
     protected List<CategoryWithDetailInfoHolder> items;
+    private static final int DURATION = 200;
 
     public CategoriesListAdapter(List<CategoryWithDetailInfoHolder> list, CategoriesListPresenter presenter) {
         mPresenter = presenter;
@@ -33,7 +38,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     @Override
     public CategoriesListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_item_layout, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, mPresenter);
     }
 
     @Override
@@ -43,8 +48,13 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         holder.text.setText(category.getName());
         holder.itemView.setOnClickListener(v ->
                 mPresenter.clickCategory(category));
-        holder.button.setOnClickListener(v ->
-                mPresenter.clickShowCategoryDetail(categoryWithDetailInfoHolder, holder));
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.button.startAnimation(createAnimationObject(categoryWithDetailInfoHolder.isDetailShown(), DURATION));
+                mPresenter.clickShowCategoryDetail(categoryWithDetailInfoHolder, holder);
+            }
+        });
         if (categoryWithDetailInfoHolder.isDetailShown()) {
             RecyclerView currentRecyclerView = holder.recyclerView;
             currentRecyclerView.setVisibility(View.VISIBLE);
@@ -54,17 +64,41 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         }
     }
 
+    private Animation createAnimationObject(boolean isOpened, int duration) {
+        AnimationSet animSet = new AnimationSet(true);
+        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.setFillAfter(true);
+        animSet.setFillEnabled(true);
+        float startPosition;
+        float endPosition;
+        if (isOpened) {
+            startPosition = 90.0f;
+            endPosition = 0.0f;
+        } else {
+            startPosition = 0.0f;
+            endPosition = 90.0f;
+        }
+        final RotateAnimation animRotate = new RotateAnimation(startPosition, endPosition ,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+        animRotate.setDuration(duration);
+        animRotate.setFillAfter(true);
+        animSet.addAnimation(animRotate);
+        return animRotate;
+    }
+
     private void bindToRecyclerView(RecyclerView recyclerView,
                                     CategoryWithDetailInfoHolder holder) {
         RecyclerView.Adapter adapter;
         RecyclerView.LayoutManager manager;
         switch (holder.getCurrentDataType()) {
             case CategoryWithDetailInfoHolder.CATEGORIES_HOLDER:
-                adapter = new CategoriesShortInfoAdapter(holder.getChildDirectories());
+                adapter = new CategoriesShortInfoAdapter(holder.getChildDirectories(), mPresenter);
                 manager = new LinearLayoutManager(recyclerView.getContext());
                 break;
             case CategoryWithDetailInfoHolder.ITEMS_HOLDER:
-                adapter = new ItemsShortInfoAdapter(holder.getItems());
+                adapter = new ItemsShortInfoAdapter(holder.getItems(), mPresenter);
                 manager = new LinearLayoutManager(recyclerView.getContext(),
                         LinearLayoutManager.HORIZONTAL, false);
                 break;
@@ -83,25 +117,27 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView text;
-        private Button button;
+        private ImageButton button;
         public RecyclerView recyclerView;
+        private CategoriesListPresenter mPresenter;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, CategoriesListPresenter presenter) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.textView);
-            button = (Button) itemView.findViewById(R.id.show_detail_info_btn);
+            button = (ImageButton) itemView.findViewById(R.id.show_detail_info_btn);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.info_container_rv);
+            mPresenter = presenter;
         }
 
         public void initRecyclerView(List<Category> categories) {
-            recyclerView.setAdapter(new CategoriesShortInfoAdapter(categories));
+            recyclerView.setAdapter(new CategoriesShortInfoAdapter(categories, mPresenter));
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
             recyclerView.getAdapter().notifyDataSetChanged();
         }
 
         public void initRecyclerViewByItems(List<Item> items) {
-            recyclerView.setAdapter(new ItemsShortInfoAdapter(items));
+            recyclerView.setAdapter(new ItemsShortInfoAdapter(items, mPresenter));
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
             recyclerView.getAdapter().notifyDataSetChanged();
