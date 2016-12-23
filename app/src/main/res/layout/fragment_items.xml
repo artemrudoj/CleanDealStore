@@ -18,10 +18,30 @@
             app:layout_scrollFlags="scroll|enterAlways|snap" />
 
     </android.support.design.widget.AppBarLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/items_rv"
+    <FrameLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/items_rv"
+            android:paddingTop="60dp"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
+            app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
+            app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
+            app:floatingSearch_searchHint="Поиск"
+            app:floatingSearch_suggestionsListAnimDuration="250"
+            app:floatingSearch_menu="@menu/menu_search_view"
+            app:floatingSearch_showSearchKey="false"
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

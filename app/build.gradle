@@ -51,6 +51,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.0'
 
     compile 'konifar:fab-transformation:1.0.0'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.5'
