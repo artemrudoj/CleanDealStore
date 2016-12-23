@@ -47,4 +47,6 @@
     <string name="added_to_one_time_delivery">Добавлено в разовую доставку</string>
     <string name="added_to_subscription">Добавлено в подписку</string>
     <string name="go_to">перейти</string>
+    <string name="create_order">оформить</string>
+    <string name="sum_cost">Суммарная стоимость:</string>
 </resources>

@@ -17,10 +17,10 @@
             android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:paddingRight="16dp"
             android:paddingLeft="16dp"
-            android:textSize="16dp"
+            android:textSize="16sp"
             tools:text="asdsd"/>
         <TextView
             android:id="@+id/count_name_tv"
@@ -28,7 +28,6 @@
             android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:paddingLeft="16dp"
             android:text="@string/count"/>
         <ImageButton
@@ -66,7 +65,6 @@
             android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:paddingLeft="16dp"
             android:text="@string/price"/>
         <TextView
