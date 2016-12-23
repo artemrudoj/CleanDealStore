@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_subscription"
+            android:icon="@drawable/ic_subscription_white_24dp"
+            android:title="@string/text_subscription" />
+        <item
+            android:id="@+id/action_categories"
+            android:icon="@drawable/ic_catalog_white_24dp"
+            android:title="@string/text_catalog" />
+        <item
+            android:id="@+id/action_cart"
+            android:icon="@drawable/ic_cart_white_24dp"
+            android:title="@string/text_cart" />
+    </group>
+
+
+</menu>

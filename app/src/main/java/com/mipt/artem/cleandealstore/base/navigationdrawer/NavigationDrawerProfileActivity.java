@@ -4,6 +4,7 @@ package com.mipt.artem.cleandealstore.base.navigationdrawer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,16 +37,17 @@ import butterknife.ButterKnife;
  * Created by artem on 22.05.16.
  */
 public abstract class NavigationDrawerProfileActivity  extends BaseActivity
-        implements AdapterView.OnItemClickListener, NavigationDrawerController, OnBackPressedListener.controller {
+        implements  NavigationDrawerController, OnBackPressedListener.controller {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    @Bind(R.id.left_drawer)
-    ListView mRecordsListView;
     @Bind(R.id.navigation_bottom)
     BottomNavigationView mBottomNavigationView;
+    @Bind(R.id.nav_view)
+    NavigationView mNavigationView;
+
     private ActionBarDrawerToggle mDrawerToggle;
-    private NavigationDrawerListBaseAdapter mNavigationDrawerAdapter;
+
 
     private OnBackPressedListener.handler mBackPressedListener;
 
@@ -60,25 +62,8 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
         setContentView(R.layout.navigation_drawer_profile);
         ButterKnife.bind(this);
         initViews();
-
-
     }
 
-
-    protected  NavigationDrawerListBaseAdapter createAdapter(Menu menu, Map<Integer, TapHandler> idActionMatcher) {
-
-        ArrayList<NavigationItem> items = new ArrayList<>();
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            TapHandler tapHandler = idActionMatcher.get(item.getItemId());
-            if (tapHandler == null) {
-                throw new IllegalArgumentException("can not find correct tap handler for id");
-            }
-            items.add(new NavigationItem(item.getIcon(), item.getTitle().toString(), false, false, tapHandler));
-        }
-        NavigationDrawerListBaseAdapter adapter = new NavigationDrawerListBaseAdapter(this, items);
-        return adapter;
-    }
 
     private void initViews() {
         mBottomNavigationView.inflateMenu(R.menu.bottom_navigtion_main);
@@ -119,19 +104,14 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
                 TapHandler tapHandler = idActionMatcher.get(item.getItemId());
                 if (tapHandler != null) {
                     tapHandler.onTap();
-//                    setToolbar(item.getTitle().toString());
                 } else {
                     throw new IllegalArgumentException("can not find correct tap handler for id");
                 }
                 return true;
             }
         });
+        setupDrawerContent(mNavigationView, idActionMatcher);
 
-        mRecordsListView.setOnItemClickListener(this);
-
-        Menu menu = mBottomNavigationView.getMenu();
-        mNavigationDrawerAdapter = createAdapter(menu, idActionMatcher);
-        mRecordsListView.setAdapter(mNavigationDrawerAdapter);
 
     }
 
@@ -162,17 +142,18 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
         mDrawerToggle.syncState();
     }
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        // for example client do not required to be login to see help section
-        NavigationItem item = (NavigationItem) mRecordsListView.getAdapter().getItem(position);
-        item.onTap();
-        mRecordsListView.setItemChecked(position, true);
-        if (item.isShouldCloseDrawer()) {
-            mDrawerLayout.closeDrawer(Gravity.LEFT);
-        }
-        setTitle(item.getText());
+    private void setupDrawerContent(NavigationView navigationView, final Map<Integer, TapHandler> idActionMatcher) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        TapHandler onTapListener = idActionMatcher.get(menuItem.getItemId());
+                        onTapListener.onTap();
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     @Override
