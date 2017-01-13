@@ -50,4 +50,9 @@
     <string name="create_order">оформить</string>
     <string name="sum_cost">Суммарная стоимость:</string>
     <string name="filters">фильтры</string>
+    <string name="dim_items">шт.</string>
+    <string name="order_with_dotes">Заказать:</string>
+    <string name="rest_with_dotes">Осталось:</string>
+    <string name="use_with_dotes">Исспользует:</string>
+    <string name="dim_people">чел.</string>
 </resources>

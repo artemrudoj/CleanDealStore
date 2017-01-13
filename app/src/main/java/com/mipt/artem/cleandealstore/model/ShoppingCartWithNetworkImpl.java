@@ -45,12 +45,6 @@ public class ShoppingCartWithNetworkImpl  {
     }
 
 
-    public Observable<Map<Integer, ItemInCart>> increaseCount(ItemInCart item) {
-        return mApiInterface
-                .editItemInShoppingCart(item.getId(), null, item.getCount() + 1, null)
-                .compose(this.applySchedulers());
-    }
-
     public Observable<Map<Integer, ItemInCart>> changeBasket(ItemInCart item, boolean isMoveToShoppingCart) {
         return mApiInterface
                 .editItemInShoppingCart(item.getId(), isMoveToShoppingCart, null, null)
@@ -58,11 +52,9 @@ public class ShoppingCartWithNetworkImpl  {
     }
 
 
-    public Observable<Map<Integer, ItemInCart>> decreaseCount(ItemInCart item) {
-        int itemsCount = item.getCount() - 1;
-//        if (itemsCount <= 0) throw new IllegalArgumentException("cannot decrease count of items");
+    public Observable<Map<Integer, ItemInCart>> setCount(ItemInCart item, int newCount) {
         return mApiInterface
-                .editItemInShoppingCart(item.getId(), null, itemsCount, null)
+                .editItemInShoppingCart(item.getId(), null, newCount, null)
                 .compose(this.applySchedulers());
     }
 
@@ -82,5 +74,11 @@ public class ShoppingCartWithNetworkImpl  {
     @SuppressWarnings("unchecked")
     private <T> Observable.Transformer<T, T> applySchedulers() {
         return (Observable.Transformer<T, T>) schedulersTransformer;
+    }
+
+    public Observable<Map<Integer, ItemInCart>> setPeopleCount(ItemInCart item, int newPeopleCount) {
+        return mApiInterface
+                .editItemInShoppingCart(item.getId(), null, null, newPeopleCount)
+                .compose(this.applySchedulers());
     }
 }

@@ -12,8 +12,22 @@ import java.util.List;
  * Created by artem on 21.08.16.
  */
 public class ItemInCart extends Item {
+
+    @SerializedName("count")
+    private int mCount;
+
+    @SerializedName("in_rack")
+    private boolean isInShoppingCart;
+
+    @SerializedName("people_count")
+    private int mPeopleCount;
+
+
     protected ItemInCart(Parcel in) {
         super(in);
+        mCount = in.readInt();
+        isInShoppingCart = in.readByte() != 0;
+        mPeopleCount = in.readInt();
     }
 
 
@@ -29,16 +43,29 @@ public class ItemInCart extends Item {
         subcategory = item.getSubcategory();
     }
 
+    public static final Creator<ItemInCart> CREATOR = new Creator<ItemInCart>() {
+        @Override
+        public ItemInCart createFromParcel(Parcel in) {
+            return new ItemInCart(in);
+        }
+
+        @Override
+        public ItemInCart[] newArray(int size) {
+            return new ItemInCart[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mCount);
+        dest.writeByte((byte) (isInShoppingCart ? 1 : 0));
+        dest.writeInt(mPeopleCount);
+    }
+
     public int getmCount() {
         return mCount;
     }
-
-
-    @SerializedName("count")
-    private int mCount;
-
-    @SerializedName("in_rack")
-    private boolean isInShoppingCart;
 
     public boolean isInShoppingCart() {
         return isInShoppingCart;
@@ -46,6 +73,14 @@ public class ItemInCart extends Item {
 
     public void setInShoppingCart(boolean inShoppingCart) {
         isInShoppingCart = inShoppingCart;
+    }
+
+    public int getPeopleCount() {
+        return mPeopleCount;
+    }
+
+    public void setPeopleCount(int mPeopleCount) {
+        this.mPeopleCount = mPeopleCount;
     }
 
     public int getCount() {

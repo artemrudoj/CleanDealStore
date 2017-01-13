@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.Utils;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,32 +39,67 @@ public class ShoppingCartAdapter  extends RecyclerView.Adapter<ItemInCartViewHol
     public void onBindViewHolder(ItemInCartViewHolder holder, int position) {
         final ItemInCart item = mItems.get(position);
         holder.name.setText(item.getNameFull());
-        holder.count.setText(Integer.toString(item.getCount()));
-        holder.decreaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.decreaseCount(item);
-                notifyDataSetChanged();
-            }
-        });
-        holder.increaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.increaseCount(item);
-                notifyDataSetChanged();
-            }
-        });
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.delete(item);
-                notifyDataSetChanged();
-            }
-        });
-        holder.price.setText(Utils.addSymbolOfRuble(item.getCost()));
+        initParameterWithCountLayouts(item, holder);
+
+        holder.price.setText(Utils.generatePriceString(Double.parseDouble(item.getCost()), item.getCount()));
         holder.itemView.setOnClickListener(v ->
                 mPresenter.clickItem(item));
         Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.image);
+    }
+
+    private void initParameterWithCountLayouts(final ItemInCart item, ItemInCartViewHolder holder) {
+
+        initParameterButton(holder.mItemsParameterWithCountLayout, item.getCount(), holder.itemView.getContext().getString(R.string.order_with_dotes),
+                holder.itemView.getContext().getString(R.string.dim_items),new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPresenter.increaseCount(item);
+                        notifyDataSetChanged();
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPresenter.decreaseCount(item);
+                        notifyDataSetChanged();
+                    }
+                }  );
+
+        if (item.isInShoppingCart()) {
+            holder.mRestParameterWithCountLayout.setVisibility(View.VISIBLE);
+            initParameterButton(holder.mRestParameterWithCountLayout, item.getCount(), holder.itemView.getContext().getString(R.string.rest_with_dotes),
+                    holder.itemView.getContext().getString(R.string.dim_items), null, null);
+        } else {
+            holder.mRestParameterWithCountLayout.setVisibility(View.GONE);
+        }
+
+        if (item.isInShoppingCart()) {
+            holder.mPeopleParameterWithCountLayout.setVisibility(View.VISIBLE);
+            initParameterButton(holder.mPeopleParameterWithCountLayout, item.getPeopleCount(), holder.itemView.getContext().getString(R.string.use_with_dotes),
+                    holder.itemView.getContext().getString(R.string.dim_people), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPresenter.increasePeopleCount(item);
+                            notifyDataSetChanged();
+                        }
+                    }, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPresenter.decreasePeopleCount(item);
+                            notifyDataSetChanged();
+                        }
+                    });
+        } else {
+            holder.mPeopleParameterWithCountLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void initParameterButton(ParameterWithCountLayout layout, int count, String name,
+                                     String dim, View.OnClickListener addListener, View.OnClickListener subListener) {
+        layout.setCount(count);
+        layout.setDimension(dim);
+        layout.setParameterName(name);
+        layout.setOnSubButtonListener(subListener);
+        layout.setOnAddButtonListener(addListener);
     }
 
 

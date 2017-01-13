@@ -27,7 +27,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
     }
 
     public void decreaseCount(ItemInCart item) {
-        Subscription subscription = mShoppingCart.decreaseCount(item)
+        int newCount = item.getCount() - 1;
+        Subscription subscription = mShoppingCart.setCount(item, newCount)
                 .subscribe(new Observer<Map<Integer, ItemInCart>>() {
             @Override
             public void onCompleted() {
@@ -48,7 +49,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
     }
 
     public void increaseCount(ItemInCart item) {
-        Subscription subscription = mShoppingCart.increaseCount(item)
+        int newCount = item.getCount() + 1;
+        Subscription subscription = mShoppingCart.setCount(item, newCount)
                 .subscribe(new Observer<Map<Integer, ItemInCart>>() {
             @Override
             public void onCompleted() {
@@ -139,4 +141,47 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
     }
 
     protected abstract boolean isItShoppingCart();
+
+    public void increasePeopleCount(ItemInCart item) {
+        int newPeopleCount = item.getPeopleCount() + 1;
+        Subscription subscription = mShoppingCart.setPeopleCount(item, newPeopleCount)
+                .subscribe(new Observer<Map<Integer, ItemInCart>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Map<Integer, ItemInCart> items) {
+                        updateShoppingCart(items);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    public void decreasePeopleCount(ItemInCart item) {
+        int newPeopleCount = item.getCount() - 1;
+        Subscription subscription = mShoppingCart.setPeopleCount(item, newPeopleCount)
+                .subscribe(new Observer<Map<Integer, ItemInCart>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Map<Integer, ItemInCart> items) {
+                        updateShoppingCart(items);
+                    }
+                });
+        addSubscription(subscription);
+    }
 }
