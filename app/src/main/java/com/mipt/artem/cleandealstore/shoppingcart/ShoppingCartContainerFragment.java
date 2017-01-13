@@ -10,8 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mipt.artem.cleandealstore.R;
+import com.mipt.artem.cleandealstore.Utils;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.ToolbarFragment;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
@@ -33,6 +35,10 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
     ViewPager mViewPager;
     @Bind(R.id.tab_layout)
     TabLayout mTabLayout;
+    @Bind(R.id.sum_cost_tv)
+    TextView mPriceTextView;
+    @Bind(R.id.sum_rl)
+    View mPriceContainer;
 
 
     boolean isOpenSubscription = true;
@@ -91,6 +97,20 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
             if (fragment instanceof ItemsUpdateListener) {
                 ((ItemsUpdateListener)fragment).onUpdateItems(items);
             }
+        }
+    }
+
+    @Override
+    public void updatePrice(List<ItemInCart> items) {
+        double sumPrice = 0.0;
+        for (ItemInCart itemInCart : items) {
+            sumPrice +=  itemInCart.getCount() * Double.parseDouble(itemInCart.getCost());
+        }
+        if (sumPrice != 0.0) {
+            mPriceContainer.setVisibility(View.VISIBLE);
+            mPriceTextView.setText(Utils.addSymbolOfRuble(sumPrice));
+        } else {
+            mPriceContainer.setVisibility(View.GONE);
         }
     }
 

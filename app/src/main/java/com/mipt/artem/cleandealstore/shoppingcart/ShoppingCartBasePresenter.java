@@ -27,6 +27,10 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
     }
 
+    private List<ItemInCart> convertFromMapToList(Map<Integer, ItemInCart> items) {
+        return new ArrayList<>(items.values());
+    }
+
     public void decreaseCount(ItemInCart item) {
         int newCount = item.getCount() - 1;
         Subscription subscription = mShoppingCart.setCount(item, newCount)
@@ -43,7 +47,9 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
             @Override
             public void onNext(Map<Integer, ItemInCart> items) {
-                updateShoppingCart(items);
+                List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                mView.showData(listOfItems);
+                mView.updatePrice(listOfItems);
             }
         });
         addSubscription(subscription);
@@ -55,7 +61,6 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
                 .subscribe(new Observer<Map<Integer, ItemInCart>>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
@@ -65,7 +70,9 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
             @Override
             public void onNext(Map<Integer, ItemInCart> items) {
-                updateShoppingCart(items);
+                List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                mView.showData(listOfItems);
+                mView.updatePrice(listOfItems);
             }
         });
         addSubscription(subscription);
@@ -90,18 +97,14 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
             @Override
             public void onNext(Map<Integer, ItemInCart> items) {
                 mView.stopLoading();
-                updateShoppingCart(items);
+                List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                mView.showData(listOfItems);
             }
         });
         addSubscription(subscription);
         mView.showLoading();
     }
 
-
-    private void updateShoppingCart(Map<Integer, ItemInCart> items) {
-        List<ItemInCart> listOfItems = new ArrayList<ItemInCart>(items.values());
-        mView.showData(listOfItems);
-    }
 
     protected abstract boolean isItShoppingCart();
 
@@ -121,7 +124,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
                     @Override
                     public void onNext(Map<Integer, ItemInCart> items) {
-                        updateShoppingCart(items);
+                        List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                        mView.showData(listOfItems);
                     }
                 });
         addSubscription(subscription);
@@ -142,7 +146,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
                     @Override
                     public void onNext(Map<Integer, ItemInCart> items) {
-                        updateShoppingCart(items);
+                        List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                        mView.showData(listOfItems);
                     }
                 });
         addSubscription(subscription);
@@ -163,7 +168,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
                     @Override
                     public void onNext(Map<Integer, ItemInCart> items) {
-                        updateShoppingCart(items);
+                        List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                        mView.showData(listOfItems);
                     }
                 });
         addSubscription(subscription);
@@ -181,7 +187,8 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
 
             @Override
             public void onNext(Map<Integer, ItemInCart> items) {
-                updateShoppingCart(items);
+                List<ItemInCart> listOfItems  =convertFromMapToList(items);
+                mView.showData(listOfItems);
             }
         });
         addSubscription(subscription);

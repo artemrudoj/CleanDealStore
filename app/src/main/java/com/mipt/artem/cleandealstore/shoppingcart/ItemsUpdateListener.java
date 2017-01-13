@@ -9,4 +9,7 @@ import java.util.List;
  */
 public interface ItemsUpdateListener {
     void onUpdateItems(List<ItemInCart> items);
+
+    void updatePrice(List<ItemInCart> items);
+
 }

@@ -37,8 +37,10 @@
     </android.support.design.widget.CoordinatorLayout>
     <RelativeLayout
         android:id="@+id/sum_rl"
+        android:background="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
+        android:elevation="4dp"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/sum_info_tv"
@@ -49,15 +51,20 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/sum_cost_tv"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="8dp"
+            android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/sum_info_tv"
             android:layout_width="wrap_content"
             tools:text="400 р"
+            android:textColor="?colorPrimaryDark"
+            android:textSize="18sp"
             android:layout_height="wrap_content" />
         <Button
             android:theme="@style/AppTheme"
             android:text="@string/create_order"
+            android:background="?colorAccent"
+            android:textColor="@android:color/white"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

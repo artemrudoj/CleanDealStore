@@ -143,6 +143,8 @@ public abstract class ShoppingCartBaseFragment extends RecyclerViewWithoutToolba
         }
     }
 
+
+
     @Override
     public void onUpdateItems(List<ItemInCart> items) {
 //        if (mAdapter == null) {
@@ -155,8 +157,20 @@ public abstract class ShoppingCartBaseFragment extends RecyclerViewWithoutToolba
 //            result.dispatchUpdatesTo(mAdapter);
 //        }
 
+
         mAdapter = createAdapter(items);
         mShoppingCartRecyclerView.setAdapter(mAdapter);
+        updatePrice(items);
+    }
+
+    @Override
+    public void updatePrice(List<ItemInCart> items) {
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment != null && parentFragment instanceof ItemsUpdateListener) {
+            ((ItemsUpdateListener)parentFragment).updatePrice(items);
+        } else {
+            throw new IllegalArgumentException("parent fragment should implement ItemsUpdateListener");
+        }
     }
 }
 
