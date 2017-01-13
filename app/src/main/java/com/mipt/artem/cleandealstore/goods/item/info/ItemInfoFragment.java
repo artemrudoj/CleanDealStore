@@ -147,42 +147,44 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
                 .build();
         viewComponent.inject(this);
         mItem = Item.getItemFromBundle(getArguments());
-        Transition sharedElementEnterTransition = (Transition) getSharedElementEnterTransition();
-        if (sharedElementEnterTransition != null) {
-            sharedElementEnterTransition.addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(@NonNull Transition transition) {
-                    Log.d(TAG, "onTransitionStart: ");
-                    mAddToShoppingFloatingActionButton.setVisibility(View.INVISIBLE);
-                    mNameItemTextView.setVisibility(View.INVISIBLE);
-                    mAboutTextView.setVisibility(View.INVISIBLE);
-                    mPriceItemTextView.setVisibility(View.INVISIBLE);
-                }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Transition sharedElementEnterTransition = (Transition) getSharedElementEnterTransition();
+            if (sharedElementEnterTransition != null) {
+                sharedElementEnterTransition.addListener(new Transition.TransitionListener() {
+                        @Override
+                        public void onTransitionStart(@NonNull Transition transition) {
+                            Log.d(TAG, "onTransitionStart: ");
+                            mAddToShoppingFloatingActionButton.setVisibility(View.INVISIBLE);
+                            mNameItemTextView.setVisibility(View.INVISIBLE);
+                            mAboutTextView.setVisibility(View.INVISIBLE);
+                            mPriceItemTextView.setVisibility(View.INVISIBLE);
+                        }
 
-                @Override
-                public void onTransitionEnd(@NonNull Transition transition) {
-                    Log.d(TAG, "onTransitionEnd: ");
-                    mAddToShoppingFloatingActionButton.show();
-                    mNameItemTextView.setVisibility(View.VISIBLE);
-                    mAboutTextView.setVisibility(View.VISIBLE);
-                    mPriceItemTextView.setVisibility(View.VISIBLE);
-                }
+                        @Override
+                        public void onTransitionEnd(@NonNull Transition transition) {
+                            Log.d(TAG, "onTransitionEnd: ");
+                            mAddToShoppingFloatingActionButton.show();
+                            mNameItemTextView.setVisibility(View.VISIBLE);
+                            mAboutTextView.setVisibility(View.VISIBLE);
+                            mPriceItemTextView.setVisibility(View.VISIBLE);
+                        }
 
-                @Override
-                public void onTransitionCancel(@NonNull Transition transition) {
-                    Log.d(TAG, "onTransitionCancel: ");
-                }
+                        @Override
+                        public void onTransitionCancel(@NonNull Transition transition) {
+                            Log.d(TAG, "onTransitionCancel: ");
+                        }
 
-                @Override
-                public void onTransitionPause(@NonNull Transition transition) {
-                    Log.d(TAG, "onTransitionPause: ");
-                }
+                        @Override
+                        public void onTransitionPause(@NonNull Transition transition) {
+                            Log.d(TAG, "onTransitionPause: ");
+                        }
 
-                @Override
-                public void onTransitionResume(@NonNull Transition transition) {
-                    Log.d(TAG, "onTransitionResume: ");
+                        @Override
+                        public void onTransitionResume(@NonNull Transition transition) {
+                            Log.d(TAG, "onTransitionResume: ");
+                        }
+                    });
                 }
-            });
         }
     }
 
