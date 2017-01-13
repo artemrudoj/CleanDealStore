@@ -165,7 +165,7 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
     }
 
     public void decreasePeopleCount(ItemInCart item) {
-        int newPeopleCount = item.getCount() - 1;
+        int newPeopleCount = item.getPeopleCount() - 1;
         Subscription subscription = mShoppingCart.setPeopleCount(item, newPeopleCount)
                 .subscribe(new Observer<Map<Integer, ItemInCart>>() {
                     @Override
