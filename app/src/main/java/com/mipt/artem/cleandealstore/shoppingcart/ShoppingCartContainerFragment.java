@@ -3,21 +3,15 @@ package com.mipt.artem.cleandealstore.shoppingcart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.BaseFragment;
-import com.mipt.artem.cleandealstore.base.NoToolbarFragment;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.ToolbarFragment;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
@@ -54,11 +48,11 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
         View view =  inflater.inflate(R.layout.fragment_shopping_cart, container, false);
         ButterKnife.bind(this, view);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.text_subscription));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.in_subscription));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.one_time_delivery));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        setToolbar(getString(R.string.trash));
+        setToolbar(getString(R.string.my_goods));
         enableDrawer(true);
 
         mAdapter = new PagerAdapter

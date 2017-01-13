@@ -26,10 +26,9 @@
     <string name="effect">Эффект</string>
     <string name="taste">Вкус</string>
     <string name="use">Использование</string>
-    <string name="trash">корзина</string>
+    <string name="my_goods">Мои товары</string>
     <string name="added">Добавлено</string>
     <string name="toShoppingCart">В корзину</string>
-    <string name="shoppingCart">Корзина</string>
     <string name="ok">ok</string>
     <string name="enter_count">Введите кол-во</string>
     <string name="cancel">отмена</string>
@@ -37,10 +36,9 @@
     <string name="count">Количество:</string>
     <string name="price">Цена:</string>
     <string name="categories">Категории</string>
-    <string name="text_cart">Корзина</string>
     <string name="text_catalog">Каталог</string>
     <string name="text_subscription">Подписка</string>
-    <string name="one_time_delivery">Разовая</string>
+    <string name="one_time_delivery">разовая доставка</string>
     <string name="transition_image_item_info">transition_image_item_info</string>
     <string name="to_subscription">в подписку</string>
     <string name="to_one_time_delivery">в разовую доставку</string>
@@ -55,4 +53,5 @@
     <string name="rest_with_dotes">Осталось:</string>
     <string name="use_with_dotes">Исспользует:</string>
     <string name="dim_people">чел.</string>
+    <string name="in_subscription">В подписке</string>
 </resources>
