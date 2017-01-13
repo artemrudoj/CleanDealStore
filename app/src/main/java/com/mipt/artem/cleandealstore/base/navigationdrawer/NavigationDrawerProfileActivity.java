@@ -9,12 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 
 import com.mipt.artem.cleandealstore.R;
@@ -25,7 +20,7 @@ import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
