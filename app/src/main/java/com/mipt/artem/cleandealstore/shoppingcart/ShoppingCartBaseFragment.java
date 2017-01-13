@@ -51,7 +51,7 @@ public abstract class ShoppingCartBaseFragment extends RecyclerViewWithoutToolba
     protected void handleItemOnSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         long position = viewHolder.getAdapterPosition();
         ItemInCart item = mAdapter.getItemById((int) position);
-        ((ShoppingCartBasePresenter)getPresenter()).itemSwiped(item);
+        ((ShoppingCartBasePresenter)getPresenter()).moveItemToAnotherBasket(item);
         mAdapter.removeItem((int) position);
     }
 

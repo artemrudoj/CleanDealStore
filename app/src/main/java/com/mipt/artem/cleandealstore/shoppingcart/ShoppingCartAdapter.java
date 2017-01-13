@@ -1,13 +1,17 @@
 package com.mipt.artem.cleandealstore.shoppingcart;
 
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.Utils;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout;
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +21,10 @@ import java.util.List;
  * Created by artem on 21.08.16.
  */
 public class ShoppingCartAdapter  extends RecyclerView.Adapter<ItemInCartViewHolder> {
+
+
+    private static final int CHANGE_BASKET_ID = 0;
+    private static final int REMOVE_ID = 1;
 
     private List<ItemInCart> mItems;
     private ShoppingCartBasePresenter mPresenter;
@@ -45,6 +53,35 @@ public class ShoppingCartAdapter  extends RecyclerView.Adapter<ItemInCartViewHol
         holder.itemView.setOnClickListener(v ->
                 mPresenter.clickItem(item));
         Picasso.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.image);
+        holder.mShowMenuButton.setOnClickListener(v -> showMenu(v, item));
+    }
+
+    private void showMenu(View v, final ItemInCart item) {
+        PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+        if (item.isInShoppingCart()) {
+            popupMenu.getMenu().add(Menu.NONE, CHANGE_BASKET_ID, Menu.NONE, R.string.to_one_time_delivery_full);
+            popupMenu.getMenu().add(Menu.NONE, REMOVE_ID, Menu.NONE, R.string.unsubscribe);
+        } else {
+            popupMenu.getMenu().add(Menu.NONE, CHANGE_BASKET_ID, Menu.NONE, R.string.to_subscription);
+            popupMenu.getMenu().add(Menu.NONE, REMOVE_ID, Menu.NONE, R.string.delete);
+        }
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem it) {
+                switch (it.getItemId()) {
+                    case CHANGE_BASKET_ID:
+                        mPresenter.moveItemToAnotherBasket(item);
+                        break;
+                    case REMOVE_ID:
+                        mPresenter.removeItem(item);
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
     }
 
     private void initParameterWithCountLayouts(final ItemInCart item, ItemInCartViewHolder holder) {

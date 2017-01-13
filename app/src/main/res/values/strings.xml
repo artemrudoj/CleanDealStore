@@ -40,7 +40,7 @@
     <string name="text_subscription">Подписка</string>
     <string name="one_time_delivery">разовая доставка</string>
     <string name="transition_image_item_info">transition_image_item_info</string>
-    <string name="to_subscription">в подписку</string>
+    <string name="to_subscription">В подписку</string>
     <string name="to_one_time_delivery">в разовую доставку</string>
     <string name="added_to_one_time_delivery">Добавлено в разовую доставку</string>
     <string name="added_to_subscription">Добавлено в подписку</string>
@@ -54,4 +54,7 @@
     <string name="use_with_dotes">Исспользует:</string>
     <string name="dim_people">чел.</string>
     <string name="in_subscription">В подписке</string>
+    <string name="unsubscribe">Отписаться</string>
+    <string name="delete">Удалить</string>
+    <string name="to_one_time_delivery_full">В разовую доставку</string>
 </resources>

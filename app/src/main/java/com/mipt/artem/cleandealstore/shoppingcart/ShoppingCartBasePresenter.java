@@ -1,6 +1,7 @@
 package com.mipt.artem.cleandealstore.shoppingcart;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.mipt.artem.cleandealstore.base.BaseGoodsPresenter;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
@@ -70,24 +71,6 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
         addSubscription(subscription);
     }
 
-    public void delete(ItemInCart item) {
-        Subscription subscription = mShoppingCart.deleteItem(item).subscribe(new Observer<Map<Integer, ItemInCart>>() {
-            @Override
-            public void onCompleted() {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onNext(Map<Integer, ItemInCart> items) {
-                updateShoppingCart(items);
-            }
-        });
-        addSubscription(subscription);
-    }
-
     public void onCreateView(Bundle savedInstanceState) {
         loadData();
     }
@@ -114,26 +97,6 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
         mView.showLoading();
     }
 
-    public void itemSwiped(ItemInCart item) {
-        Subscription subscription = mShoppingCart.changeBasket(item, !isItShoppingCart())
-                .subscribe(new Observer<Map<Integer, ItemInCart>>() {
-            @Override
-            public void onCompleted() {
-                mView.handleSuccessfulMoving();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Map<Integer, ItemInCart> items) {
-                updateShoppingCart(items);
-            }
-        });
-        addSubscription(subscription);
-    }
 
     private void updateShoppingCart(Map<Integer, ItemInCart> items) {
         List<ItemInCart> listOfItems = new ArrayList<ItemInCart>(items.values());
@@ -182,6 +145,45 @@ public abstract class ShoppingCartBasePresenter extends BaseGoodsPresenter {
                         updateShoppingCart(items);
                     }
                 });
+        addSubscription(subscription);
+    }
+
+    public void moveItemToAnotherBasket(ItemInCart item) {
+        Subscription subscription = mShoppingCart.changeBasket(item, !isItShoppingCart())
+                .subscribe(new Observer<Map<Integer, ItemInCart>>() {
+                    @Override
+                    public void onCompleted() {
+                        mView.handleSuccessfulMoving();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Map<Integer, ItemInCart> items) {
+                        updateShoppingCart(items);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    public void removeItem(ItemInCart item) {
+        Subscription subscription = mShoppingCart.deleteItem(item).subscribe(new Observer<Map<Integer, ItemInCart>>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(Map<Integer, ItemInCart> items) {
+                updateShoppingCart(items);
+            }
+        });
         addSubscription(subscription);
     }
 }

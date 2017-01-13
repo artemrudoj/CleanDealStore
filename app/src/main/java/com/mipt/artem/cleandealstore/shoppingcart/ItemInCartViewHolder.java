@@ -20,6 +20,7 @@ public class ItemInCartViewHolder  extends RecyclerView.ViewHolder {
     public ParameterWithCountLayout mPeopleParameterWithCountLayout;
     public ParameterWithCountLayout mItemsParameterWithCountLayout;
     public ParameterWithCountLayout mRestParameterWithCountLayout;
+    public ImageView mShowMenuButton;
 
     public ItemInCartViewHolder(View itemView) {
         super(itemView);
@@ -29,5 +30,6 @@ public class ItemInCartViewHolder  extends RecyclerView.ViewHolder {
         mPeopleParameterWithCountLayout = (ParameterWithCountLayout) itemView.findViewById(R.id.people_count_pwcl);
         mItemsParameterWithCountLayout = (ParameterWithCountLayout) itemView.findViewById(R.id.order_count_pwcl);
         mRestParameterWithCountLayout = (ParameterWithCountLayout) itemView.findViewById(R.id.rest_count_pwcl);
+        mShowMenuButton = (ImageView) itemView.findViewById(R.id.menu_iv);
     }
 }

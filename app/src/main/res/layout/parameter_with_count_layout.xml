@@ -14,13 +14,13 @@
         android:paddingLeft="16dp"
         tools:text="@string/count"/>
     <ImageButton
-        android:id="@+id/add_item_ib"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/vector_add"
+        android:id="@+id/sub_item_ib"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/vector_decrease"
         android:tint="@android:color/darker_gray"
         android:background="@null"
-        android:layout_width="24dp"
         android:layout_gravity="center_vertical"
+        android:layout_width="24dp"
         android:layout_height="24dp" />
     <TextView
         android:id="@+id/count_tv"
@@ -45,12 +45,12 @@
         android:gravity="left"
         tools:text="шт."/>
     <ImageButton
-        android:id="@+id/sub_item_ib"
-        android:layout_marginLeft="8dp"
-        android:src="@drawable/vector_decrease"
+        android:id="@+id/add_item_ib"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/vector_add"
         android:tint="@android:color/darker_gray"
         android:background="@null"
-        android:layout_gravity="center_vertical"
         android:layout_width="24dp"
+        android:layout_gravity="center_vertical"
         android:layout_height="24dp" />
 </LinearLayout>

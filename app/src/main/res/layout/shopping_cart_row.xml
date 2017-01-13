@@ -19,10 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:paddingRight="16dp"
+            android:layout_toLeftOf="@+id/menu_iv"
             android:paddingLeft="16dp"
             android:textSize="16sp"
             tools:text="asdsd"/>
+        <ImageView
+            android:id="@+id/menu_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_more_vert_black_24dp"/>
         <com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout
             android:id="@+id/people_count_pwcl"
             android:layout_below="@+id/goods_name_tv"
