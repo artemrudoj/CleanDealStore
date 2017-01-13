@@ -11,6 +11,7 @@
         <ImageView
             android:id="@+id/goods_icon_iv"
             android:layout_width="64dp"
+            android:layout_centerVertical="true"
             android:layout_height="64dp" />
         <TextView
             android:id="@+id/goods_name_tv"
@@ -22,46 +23,27 @@
             android:paddingLeft="16dp"
             android:textSize="16sp"
             tools:text="asdsd"/>
-        <TextView
-            android:id="@+id/count_name_tv"
+        <com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout
+            android:id="@+id/people_count_pwcl"
             android:layout_below="@+id/goods_name_tv"
             android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="@string/count"/>
-        <ImageButton
-            android:id="@+id/add_item_ib"
-            android:layout_below="@+id/goods_name_tv"
-            android:layout_toRightOf="@+id/count_name_tv"
-            android:layout_marginLeft="16dp"
-            android:src="@drawable/vector_add"
-            android:tint="@android:color/darker_gray"
-            android:background="@null"
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
-        <TextView
-            android:id="@+id/count_tv"
-            android:paddingLeft="16dp"
-            android:layout_below="@+id/goods_name_tv"
-            android:layout_toRightOf="@+id/add_item_ib"
+            android:layout_height="wrap_content"/>
+        <com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout
+            android:id="@+id/rest_count_pwcl"
+            android:layout_below="@+id/people_count_pwcl"
+            android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="1"/>
-        <ImageButton
-            android:id="@+id/delcrease_item_ib"
-            android:layout_below="@+id/goods_name_tv"
-            android:layout_toRightOf="@+id/count_tv"
-            android:layout_marginLeft="16dp"
-            android:src="@drawable/vector_decrease"
-            android:tint="@android:color/darker_gray"
-            android:background="@null"
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
+            android:layout_height="wrap_content"/>
+        <com.mipt.artem.cleandealstore.ui.ParameterWithCountLayout
+            android:id="@+id/order_count_pwcl"
+            android:layout_below="@+id/rest_count_pwcl"
+            android:layout_toRightOf="@+id/goods_icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/price_name_tv"
-            android:layout_below="@+id/add_item_ib"
+            android:layout_below="@+id/order_count_pwcl"
             android:layout_toRightOf="@+id/goods_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,24 +52,14 @@
         <TextView
             android:id="@+id/price_tv"
             android:paddingLeft="16dp"
-            android:layout_below="@+id/add_item_ib"
+            android:layout_below="@+id/order_count_pwcl"
             android:layout_toRightOf="@+id/price_name_tv"
             android:textColor="?colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             tools:text="1"/>
-        <ImageButton
-            android:id="@+id/del_item_ib"
-            android:layout_below="@+id/goods_name_tv"
-            android:layout_alignParentRight="true"
-            android:tint="@android:color/darker_gray"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/vectro_delete"
-            android:background="@null"
-            android:layout_marginLeft="16dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
+
 
 
     </RelativeLayout>
