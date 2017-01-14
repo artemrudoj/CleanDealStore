@@ -17,12 +17,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.RecyclerViewWithoutToolbarFragment;
 import com.mipt.artem.cleandealstore.base.recycledviews.RecyclerViewBaseFragment;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.ui.RecyclerViewEmptySupport;
 import com.mipt.artem.cleandealstore.utils.ItemsInCartDiffCallback;
 
 import java.util.List;
@@ -39,7 +41,15 @@ public abstract class ShoppingCartBaseFragment extends RecyclerViewWithoutToolba
         ItemsUpdateListener{
 
     @Bind(R.id.goods_rv)
-    protected RecyclerView mShoppingCartRecyclerView;
+    protected RecyclerViewEmptySupport mShoppingCartRecyclerView;
+
+    @Bind(R.id.list_empty)
+    TextView mEmptyTextView;
+
+
+    protected void setEmptyTextViewText(String text) {
+        mEmptyTextView.setText(text);
+    }
 
     protected ShoppingCartAdapter mAdapter;
 
@@ -67,6 +77,7 @@ public abstract class ShoppingCartBaseFragment extends RecyclerViewWithoutToolba
         ButterKnife.bind(this, view);
 
         initProgressBarBuilder(mShoppingCartRecyclerView, view, getActivity());
+        mShoppingCartRecyclerView.setEmptyView(mEmptyTextView);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         mShoppingCartRecyclerView.setLayoutManager(llm);

@@ -61,4 +61,6 @@
     <string name="count_info_for_subscription">Сколько человек будет использовать товар</string>
     <string name="addtitional_info_for_subscription">Необходимо для корректного прогнозирования расхода товара</string>
     <string name="count_info_for_one_time_delivery">Укажите число единиц товара</string>
+    <string name="emty_list_in_one_time_delivery">Добавьте товары из каталога</string>
+    <string name="emty_list_in_subscription">Добавь товары в подписку прямо сейчас!</string>
 </resources>

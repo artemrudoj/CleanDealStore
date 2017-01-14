@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;
 import com.mipt.artem.cleandealstore.di.view.ViewComponent;
@@ -41,6 +42,7 @@ public class SubscriptionFragment extends ShoppingCartBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        setEmptyTextViewText(getString(R.string.emty_list_in_subscription));
         mPresenter.onCreateView(savedInstanceState);
         return view;
     }
