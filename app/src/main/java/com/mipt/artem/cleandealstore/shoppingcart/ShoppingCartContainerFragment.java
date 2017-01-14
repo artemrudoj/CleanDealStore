@@ -3,6 +3,7 @@ package com.mipt.artem.cleandealstore.shoppingcart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,8 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
     TextView mPriceTextView;
     @Bind(R.id.sum_rl)
     View mPriceContainer;
+    @Bind(R.id.add_to_my_goods_fab)
+    FloatingActionButton mAddToMyGoodsFloatingActionButton;
 
 
     boolean isOpenSubscription = true;
