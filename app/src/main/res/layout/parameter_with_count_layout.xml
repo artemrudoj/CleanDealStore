@@ -16,8 +16,7 @@
     <ImageButton
         android:id="@+id/sub_item_ib"
         android:layout_marginLeft="8dp"
-        android:src="@drawable/vector_decrease"
-        android:tint="@android:color/darker_gray"
+        android:src="@drawable/ic_remove_24dp"
         android:background="@null"
         android:layout_gravity="center_vertical"
         android:layout_width="24dp"
@@ -47,8 +46,7 @@
     <ImageButton
         android:id="@+id/add_item_ib"
         android:layout_marginLeft="16dp"
-        android:src="@drawable/vector_add"
-        android:tint="@android:color/darker_gray"
+        android:src="@drawable/ic_add_24dp"
         android:background="@null"
         android:layout_width="24dp"
         android:layout_gravity="center_vertical"

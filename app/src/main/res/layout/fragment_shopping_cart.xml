@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add_24dp"
+            android:src="@drawable/ic_add_white"
             app:layout_anchor="@id/pager"
             app:backgroundTint="@android:color/holo_green_dark"
             app:layout_behavior="com.mipt.artem.cleandealstore.ui.ScrollingFabBehaviour"
