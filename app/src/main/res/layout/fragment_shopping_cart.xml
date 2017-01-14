@@ -28,15 +28,16 @@
             android:layout_height="wrap_content" />
 
     </android.support.design.widget.AppBarLayout>
-    <com.mipt.artem.cleandealstore.ui.ShoppingCartViewPager
-        android:id="@+id/pager"
-        android:layout_above="@+id/sum_rl"
-        android:layout_width="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="wrap_content" />
+        <com.mipt.artem.cleandealstore.ui.ShoppingCartViewPager
+            android:id="@+id/pager"
+            android:layout_above="@+id/sum_rl"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent" />
     </android.support.design.widget.CoordinatorLayout>
     <RelativeLayout
         android:id="@+id/sum_rl"
+        android:visibility="gone"
         android:background="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

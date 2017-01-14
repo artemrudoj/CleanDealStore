@@ -43,6 +43,8 @@ import com.mipt.artem.cleandealstore.rest.responcedata.ExtraInfo;
 import com.mipt.artem.cleandealstore.rest.responcedata.Item;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
 import com.mipt.artem.cleandealstore.ui.DetailsTransition;
+import com.mipt.artem.cleandealstore.ui.SelectBasketTypeDialogFragment;
+import com.mipt.artem.cleandealstore.utils.DialogTypes;
 import com.squareup.picasso.Picasso;
 
 
@@ -220,7 +222,8 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
         mAddToShoppingFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FabTransformation.with(mAddToShoppingFloatingActionButton).transformTo(mToolbarFooter);
+//                FabTransformation.with(mAddToShoppingFloatingActionButton).transformTo(mToolbarFooter);
+                SelectBasketTypeDialogFragment.show(getFragmentManager(), ItemInfoFragment.this, DialogTypes.SELECT_BASKET);
             }
         });
         mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -295,8 +298,15 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == PickNumberOfItemsAllertDialog.PICK_NUMBER_ACTION) {
-            mPresenter.AddToShoppingCart(mItem, data.getExtras().getInt(PickNumberOfItemsAllertDialog.EXTRA_NUMBER), false);
+        switch (requestCode) {
+            case DialogTypes.SELECT_BASKET:
+                boolean isInSubscription = data.getBooleanExtra(SelectBasketTypeDialogFragment.IS_IN_SUBSCRIPTION, false);
+                int itemCount = data.getIntExtra(SelectBasketTypeDialogFragment.ITEMS_COUNT, -1);
+                mPresenter.AddToShoppingCart(mItem, itemCount, isInSubscription);
+                break;
+            case PickNumberOfItemsAllertDialog.PICK_NUMBER_ACTION:
+                mPresenter.AddToShoppingCart(mItem, data.getExtras().getInt(PickNumberOfItemsAllertDialog.EXTRA_NUMBER), false);
+                break;
         }
     }
 
@@ -392,6 +402,7 @@ public class ItemInfoFragment extends NoToolbarFragment implements ItemInfoView,
                 .addToBackStack(null)
                 .commit();
     }
+
 
 
 }

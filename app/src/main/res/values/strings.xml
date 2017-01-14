@@ -57,4 +57,8 @@
     <string name="unsubscribe">Отписаться</string>
     <string name="delete">Удалить</string>
     <string name="to_one_time_delivery_full">В разовую доставку</string>
+    <string name="cancellation">Отмена</string>
+    <string name="count_info_for_subscription">Сколько человек будет использовать товар</string>
+    <string name="addtitional_info_for_subscription">Необходимо для корректного прогнозирования расхода товара</string>
+    <string name="count_info_for_one_time_delivery">Укажите число единиц товара</string>
 </resources>

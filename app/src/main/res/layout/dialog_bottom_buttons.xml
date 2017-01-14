@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Button
+        android:layout_toLeftOf="@+id/btn_ok"
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/cancellation"
+        android:gravity="right|center"
+        style="?android:attr/borderlessButtonStyle"
+        android:onClick="onClick"/>
+    <Button
+        android:layout_alignParentRight="true"
+        android:id="@+id/btn_ok"
+        android:paddingRight="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/ok"
+        android:textAllCaps="true"
+        android:gravity="right|center"
+        style="?android:attr/borderlessButtonStyle"
+        android:onClick="onClick"/>
+</RelativeLayout>
