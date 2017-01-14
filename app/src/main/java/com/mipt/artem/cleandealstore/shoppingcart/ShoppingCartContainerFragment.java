@@ -17,7 +17,9 @@ import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.Utils;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.ToolbarFragment;
+import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryInShoppingCartFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.subscription.SubscriptionFragment;
 import com.mipt.artem.cleandealstore.ui.CustomFragmentPagerAdapter;
@@ -88,6 +90,17 @@ public class ShoppingCartContainerFragment extends ToolbarFragment implements It
         if (!isOpenSubscription) {
             mViewPager.setCurrentItem(1);
         }
+
+        mAddToMyGoodsFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new CategoriesListFragment().newInstance(Category.ROOT))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         return view;
     }
 
