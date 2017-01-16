@@ -1,4 +1,4 @@
-package com.mipt.artem.cleandealstore.registration;
+package com.mipt.artem.cleandealstore.user.registration;
 
 
 

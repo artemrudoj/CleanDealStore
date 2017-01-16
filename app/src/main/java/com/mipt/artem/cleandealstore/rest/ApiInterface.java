@@ -1,6 +1,7 @@
 package com.mipt.artem.cleandealstore.rest;
 
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.model.User;
 import com.mipt.artem.cleandealstore.network.UserVO;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
@@ -73,4 +74,10 @@ public interface ApiInterface {
     Observable<Object> logout();
 
 
+    @FormUrlEncoded
+    @POST("/api/user/change_info/")
+    Observable<User> changeUserInfo(@Field("first_name")String first_name,
+                                    @Field("last_name")String last_name,
+                                    @Field("email")String email,
+                                    @Field("sex")Integer sex);
 }

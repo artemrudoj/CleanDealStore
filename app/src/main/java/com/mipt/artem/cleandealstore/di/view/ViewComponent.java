@@ -3,7 +3,8 @@ package com.mipt.artem.cleandealstore.di.view;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
-import com.mipt.artem.cleandealstore.registration.RegistrationNumberFragment;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoFragment;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryInShoppingCartFragment;
 import com.mipt.artem.cleandealstore.shoppingcart.subscription.SubscriptionFragment;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionsFragment;
@@ -29,4 +30,6 @@ public interface ViewComponent {
     void inject(SubscriptionFragment subscriptionFragment);
 
     void inject(RegistrationNumberFragment registrationNumberFragment);
+
+    void inject(ChangeUserInfoFragment changeUserInfoFragment);
 }

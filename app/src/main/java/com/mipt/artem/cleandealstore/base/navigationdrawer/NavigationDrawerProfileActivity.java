@@ -17,6 +17,8 @@ import com.mipt.artem.cleandealstore.base.BaseActivity;
 import com.mipt.artem.cleandealstore.base.NavigationDrawerController;
 import com.mipt.artem.cleandealstore.base.OnBackPressedListener;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListFragment;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationActivity;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberFragment;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartContainerFragment;
 
@@ -66,11 +68,12 @@ public abstract class NavigationDrawerProfileActivity  extends BaseActivity
         idActionMatcher.put(R.id.action_subscription, new TapHandler() {
             @Override
             public void onTap() {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new CategoriesListFragment())
-                        .addToBackStack(null)
-                        .commit();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.container, new RegistrationNumberFragment())
+//                        .addToBackStack(null)
+//                        .commit();
+            RegistrationActivity.goTo(NavigationDrawerProfileActivity.this);
             }
         });
         idActionMatcher.put(R.id.action_categories, new TapHandler() {

@@ -77,4 +77,5 @@
     <string name="apply">Применить</string>
     <string name="registration">Регистация</string>
     <string name="pleas_wait">Пожалуйста, подождите</string>
+    <string name="second_name">Фамилия</string>
 </resources>

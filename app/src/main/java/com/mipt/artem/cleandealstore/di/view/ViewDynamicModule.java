@@ -2,7 +2,6 @@ package com.mipt.artem.cleandealstore.di.view;
 
 
 
-import com.mipt.artem.cleandealstore.di.Const;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListPresenter;
 import com.mipt.artem.cleandealstore.goods.category.CategoriesListView;
 import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoFragment;
@@ -11,18 +10,17 @@ import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListView;
-import com.mipt.artem.cleandealstore.registration.RegistrationNumberFragment;
-import com.mipt.artem.cleandealstore.registration.RegistrationNumberPresenter;
-import com.mipt.artem.cleandealstore.registration.RegistrationNumberView;
-import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartBasePresenter;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoFragment;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoPresenter;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoView;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberFragment;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberPresenter;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberView;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartView;
 import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryPresenter;
 import com.mipt.artem.cleandealstore.shoppingcart.subscription.SubscriptionInShoppingCartPresenter;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionPresenter;
 import com.mipt.artem.cleandealstore.subscription.SubscriptionView;
-
-import javax.inject.Named;
-import javax.inject.Qualifier;
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,6 +34,7 @@ public class ViewDynamicModule {
     private ShoppingCartView mShoppingCartView;
     private SubscriptionView mSubscriptionView;
     private RegistrationNumberView mRegistrationNumberView;
+    private ChangeUserInfoView mChangeUserInfoView;
 
     public ViewDynamicModule(CategoriesListView view) {
         this.mCategoriesListView = view;
@@ -59,6 +58,10 @@ public class ViewDynamicModule {
 
     public ViewDynamicModule(RegistrationNumberFragment registrationNumberFragment) {
         this.mRegistrationNumberView = registrationNumberFragment;
+    }
+
+    public ViewDynamicModule(ChangeUserInfoView view) {
+        mChangeUserInfoView = view;
     }
 
 
@@ -97,5 +100,11 @@ public class ViewDynamicModule {
     ItemInfoPresenter provideItemsInfoPresenter() {
         return new ItemInfoPresenter(mItemInfoView);
     }
+
+    @Provides
+    ChangeUserInfoPresenter provideChangeUserInfoPresenter() {
+        return new ChangeUserInfoPresenter(mChangeUserInfoView);
+    }
+
 
 }

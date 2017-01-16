@@ -3,6 +3,8 @@ package com.mipt.artem.cleandealstore.di;
 
 import com.mipt.artem.cleandealstore.model.AuthenticationService;
 import com.mipt.artem.cleandealstore.model.ShoppingCartWithNetworkImpl;
+import com.mipt.artem.cleandealstore.model.User;
+import com.mipt.artem.cleandealstore.model.UserController;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
 import com.mipt.artem.cleandealstore.rest.ApiModule;
 
@@ -53,5 +55,20 @@ public class ModelModule {
     @Named(Const.IO_THREAD)
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
+    }
+
+    @Provides
+    @Singleton
+    User provideUser() {
+        return new User();
+    }
+
+    @Provides
+    @Singleton
+    UserController provideUserController(ApiInterface apiInterface,
+                                         @Named(Const.UI_THREAD)Scheduler uischeduler,
+                                         @Named(Const.IO_THREAD)Scheduler ioscheduler,
+                                         User user) {
+        return new UserController(apiInterface, uischeduler, ioscheduler, user);
     }
 }

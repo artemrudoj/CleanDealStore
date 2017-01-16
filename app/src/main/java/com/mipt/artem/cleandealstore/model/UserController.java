@@ -1,14 +1,10 @@
 package com.mipt.artem.cleandealstore.model;
 
 import com.mipt.artem.cleandealstore.di.Const;
-import com.mipt.artem.cleandealstore.network.UserVO;
 import com.mipt.artem.cleandealstore.rest.ApiInterface;
-
-
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
 
 import rx.Observable;
 import rx.Scheduler;
@@ -17,12 +13,13 @@ import rx.Scheduler;
  * Created by artem on 16.01.17.
  */
 
-public class AuthenticationService {
+public class UserController {
+    @Inject
+    User mCurrentUser;
+
     private final Observable.Transformer schedulersTransformer;
     @Inject
     protected ApiInterface mApiInterface;
-
-
 
     @Inject
     @Named(Const.UI_THREAD)
@@ -32,11 +29,12 @@ public class AuthenticationService {
     @Named(Const.IO_THREAD)
     Scheduler ioThread;
 
-    public AuthenticationService(ApiInterface apiInterface, Scheduler uiThread, Scheduler ioThread) {
+    public UserController(ApiInterface apiInterface, Scheduler uiThread, Scheduler ioThread, User user) {
         this.mApiInterface = apiInterface;
         this.schedulersTransformer = o -> ((Observable) o).subscribeOn(ioThread).observeOn(uiThread);
         this.uiThread = uiThread;
         this.ioThread = ioThread;
+        this.mCurrentUser = user;
     }
 
     @SuppressWarnings("unchecked")
@@ -44,16 +42,15 @@ public class AuthenticationService {
         return (Observable.Transformer<T, T>) schedulersTransformer;
     }
 
-
-    public Observable<UserVO> getConfirmationCode(String phone) {
+    public Observable<User> changeUserInfo(String first_name,
+                                           String last_name,
+                                           String email,
+                                           Integer sex) {
         return mApiInterface
-                .getConfirmationCode(phone)
-                .compose(this.applySchedulers());
-    }
-
-    public Observable<UserVO> loginAndRegistrationByCode(String code, String phone) {
-        return mApiInterface
-                .loginAndRegistrationByCode(code, phone, null, null, null)
+                .changeUserInfo(first_name,
+                        last_name,
+                        email,
+                        sex)
                 .compose(this.applySchedulers());
     }
 
@@ -61,5 +58,9 @@ public class AuthenticationService {
         return mApiInterface
                 .logout()
                 .compose(this.applySchedulers());
+    }
+
+    public User getCurrentUser() {
+        return mCurrentUser;
     }
 }

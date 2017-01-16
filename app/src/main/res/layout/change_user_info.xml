@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include android:id="@+id/profile_info_container" layout="@layout/profile_info"/>
+            <Button
+                android:id="@+id/registrate_btn"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/profile_info_container"
+                android:background="?colorAccent"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="16dp"
+                android:textColor="@android:color/white"
+                android:text="@string/approve"/>
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

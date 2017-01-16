@@ -1,4 +1,4 @@
-package com.mipt.artem.cleandealstore.registration;
+package com.mipt.artem.cleandealstore.user.registration;
 
 
 import android.app.Activity;
@@ -26,6 +26,7 @@ import com.mipt.artem.cleandealstore.di.view.ViewDynamicModule;
 import com.mipt.artem.cleandealstore.network.UserVO;
 import com.mipt.artem.cleandealstore.ui.ApproveCodeView;
 import com.mipt.artem.cleandealstore.ui.PhoneTextWatcher;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoFragment;
 import com.mipt.artem.cleandealstore.utils.UIUtils;
 
 import javax.inject.Inject;
@@ -186,7 +187,8 @@ public class RegistrationNumberFragment extends BaseFragment implements View.OnC
 
     @Override
     public void successLoginByCode(UserVO userVO) {
-
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new ChangeUserInfoFragment()).commit();
     }
 
     @Override

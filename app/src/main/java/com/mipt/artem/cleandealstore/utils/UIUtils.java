@@ -60,4 +60,29 @@ public class UIUtils {
             progressDialog.dismiss();
         }
     }
+
+    public static boolean validateEmailFormat(EditText editText, TextInputLayout textInputLayout, int id,
+                                              Activity activity, boolean isShouldAlwaysSetText) {
+        if(validateEmail(editText.getText().toString())) {
+            textInputLayout.setError(null);
+            return true;
+        } else {
+            if (isShouldAlwaysSetText) {
+                textInputLayout.setError(activity.getString(id));
+            }
+//            UIUtils.requestFocus(editText, appCompatActivity);
+            return false;
+        }
+    }
+
+    static boolean  validateEmail(String string) {
+        if(android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()) {
+            int dotePosition = string.lastIndexOf(".");
+            String dottedSubString = string.substring(dotePosition);
+            if(dottedSubString.length() > 2) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

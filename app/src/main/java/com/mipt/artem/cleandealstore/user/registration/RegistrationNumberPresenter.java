@@ -1,8 +1,9 @@
-package com.mipt.artem.cleandealstore.registration;
+package com.mipt.artem.cleandealstore.user.registration;
 
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.model.AuthenticationService;
+import com.mipt.artem.cleandealstore.model.UserController;
 import com.mipt.artem.cleandealstore.network.UserVO;
 
 import javax.inject.Inject;
@@ -19,6 +20,9 @@ public class RegistrationNumberPresenter implements Presenter {
 
     @Inject
     protected AuthenticationService mAuthenticationService;
+
+    @Inject
+    protected UserController mUserController;
 
     @Inject
     protected CompositeSubscription compositeSubscription;
@@ -60,23 +64,6 @@ public class RegistrationNumberPresenter implements Presenter {
                 mView.stopLoading();
             }
         });
-//        Subscription subscription = mAuthenticationService.logout().subscribe(new Observer<Object>() {
-//            @Override
-//            public void onCompleted() {
-//                mView.stopLoading();
-//                mView.successGetCode();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                mView.stopLoading();
-//            }
-//
-//            @Override
-//            public void onNext(Object obj) {
-//                mView.stopLoading();
-//            }
-//        });
         mView.showLoading();
         addSubscription(subscription);
 
@@ -98,6 +85,7 @@ public class RegistrationNumberPresenter implements Presenter {
             public void onNext(UserVO userVO) {
                 mView.stopLoading();
                 mView.successLoginByCode(userVO);
+                mUserController.getCurrentUser().updateUser(userVO.getUser());
             }
         });
         mView.showLoading();

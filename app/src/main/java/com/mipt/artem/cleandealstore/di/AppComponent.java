@@ -6,7 +6,8 @@ import com.mipt.artem.cleandealstore.base.SubscriptionBasePresenter;
 import com.mipt.artem.cleandealstore.di.user.UserComponent;
 import com.mipt.artem.cleandealstore.di.user.UserModule;
 import com.mipt.artem.cleandealstore.model.GoodsModel;
-import com.mipt.artem.cleandealstore.registration.RegistrationNumberPresenter;
+import com.mipt.artem.cleandealstore.user.changeinfo.ChangeUserInfoPresenter;
+import com.mipt.artem.cleandealstore.user.registration.RegistrationNumberPresenter;
 
 import javax.inject.Singleton;
 
@@ -24,4 +25,6 @@ public interface AppComponent {
     void inject(SubscriptionBasePresenter subscriptionBasePresenter);
 
     void inject(RegistrationNumberPresenter registrationNumberPresenter);
+
+    void inject(ChangeUserInfoPresenter changeUserInfoPresenter);
 }

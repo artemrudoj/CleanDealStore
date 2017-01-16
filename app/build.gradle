@@ -58,6 +58,8 @@ dependencies {
 
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
 
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+
 
     compile 'konifar:fab-transformation:1.0.0'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
