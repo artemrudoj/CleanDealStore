@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.BaseFragment;
+import com.mipt.artem.cleandealstore.base.BaseFragmentWithDrawer;
 
 /**
  * Created by artem on 21.08.16.
@@ -43,7 +43,7 @@ public class PickNumberOfItemsAllertDialog extends DialogFragment {
         return builder.create();
     }
 
-    static public void showDialog(FragmentManager fragmentManager, BaseFragment fragment) {
+    static public void showDialog(FragmentManager fragmentManager, BaseFragmentWithDrawer fragment) {
         PickNumberOfItemsAllertDialog dialog = new PickNumberOfItemsAllertDialog();
         dialog.setTargetFragment(fragment, PICK_NUMBER_ACTION);
         dialog.show(fragmentManager, null);

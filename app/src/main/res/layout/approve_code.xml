@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/access_container"
+    android:layout_below="@+id/phone_number_et"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/code_was_sended_enter_please"
+        android:textColor="@color/dark_gray"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/approve_code_til"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp"
+        android:paddingBottom="8dp"/>
+        <EditText
+            android:textSize="16sp"
+            android:maxLength="6"
+            android:paddingTop="5dp"
+            android:id="@+id/confirm_code_et"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:textColor="?colorPrimary"
+            android:hint="@string/approve_code"
+            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/sendConfirmationOneMoreTime"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_repeat"
+        android:textColor="?colorPrimaryDark"/>
+</LinearLayout>

@@ -1,9 +1,7 @@
 package com.mipt.artem.cleandealstore.base;
 
 import android.support.annotation.CallSuper;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.mipt.artem.cleandealstore.R;
 import com.mipt.artem.cleandealstore.base.navigationdrawer.NavigationDrawerProfileActivity;
@@ -14,7 +12,7 @@ import butterknife.Bind;
  * Created by artem on 20.12.16.
  */
 
-public abstract class ToolbarFragment extends BaseFragment {
+public abstract class ToolbarFragment extends BaseFragmentWithDrawer {
     @Bind(R.id.toolbar_actionbar)
     Toolbar mActionBarToolbar;
 

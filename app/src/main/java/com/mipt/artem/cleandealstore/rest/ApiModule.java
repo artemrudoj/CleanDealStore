@@ -4,14 +4,21 @@ package com.mipt.artem.cleandealstore.rest;
 
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.mipt.artem.cleandealstore.base.CleanDealStoreApplication;
+import com.mipt.artem.cleandealstore.di.Const;
+import com.mipt.artem.cleandealstore.network.XSCRFInterceptor;
 
+import java.util.List;
+
+import okhttp3.Cookie;
 import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -36,16 +43,17 @@ public final class ApiModule {
 
         CookieJar cookieJar =
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(getContext()));
-
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()
                 .cookieJar(cookieJar);
 
         if (ENABLE_LOG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            okHttpClientBuilder.addInterceptor(interceptor);
+            okHttpClientBuilder.addNetworkInterceptor(interceptor);
         }
 
+
+        okHttpClientBuilder.addInterceptor(new XSCRFInterceptor(cookieJar));
         httpClient = okHttpClientBuilder.build();
 
 
@@ -60,5 +68,6 @@ public final class ApiModule {
         return builder.build().create(ApiInterface.class);
 
     }
+
 
 }

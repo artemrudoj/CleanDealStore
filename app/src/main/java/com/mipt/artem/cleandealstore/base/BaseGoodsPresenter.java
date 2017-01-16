@@ -18,8 +18,6 @@ public abstract class BaseGoodsPresenter implements Presenter {
     @Inject
     protected ShoppingCartWithNetworkImpl mShoppingCart;
 
-
-
     @Inject
     protected CompositeSubscription compositeSubscription;
 

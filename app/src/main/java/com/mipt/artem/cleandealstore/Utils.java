@@ -2,6 +2,7 @@ package com.mipt.artem.cleandealstore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.widget.EditText;
 
 import java.text.DecimalFormat;
 
@@ -38,6 +39,13 @@ public class Utils {
         styledAttributes.recycle();
 
         return toolbarHeight;
+    }
+
+    public static boolean isEditTextEmpty(EditText etText) {
+        if (etText.getText().toString().trim().length() > 0)
+            return false;
+
+        return true;
     }
 }
 

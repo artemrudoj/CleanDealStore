@@ -11,6 +11,9 @@ import com.mipt.artem.cleandealstore.goods.item.info.ItemInfoPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListFragment;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListPresenter;
 import com.mipt.artem.cleandealstore.goods.item.list.ItemsListView;
+import com.mipt.artem.cleandealstore.registration.RegistrationNumberFragment;
+import com.mipt.artem.cleandealstore.registration.RegistrationNumberPresenter;
+import com.mipt.artem.cleandealstore.registration.RegistrationNumberView;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartBasePresenter;
 import com.mipt.artem.cleandealstore.shoppingcart.ShoppingCartView;
 import com.mipt.artem.cleandealstore.shoppingcart.onetimedelivery.OneTimeDeliveryPresenter;
@@ -32,6 +35,7 @@ public class ViewDynamicModule {
     private ItemInfoView mItemInfoView;
     private ShoppingCartView mShoppingCartView;
     private SubscriptionView mSubscriptionView;
+    private RegistrationNumberView mRegistrationNumberView;
 
     public ViewDynamicModule(CategoriesListView view) {
         this.mCategoriesListView = view;
@@ -51,6 +55,16 @@ public class ViewDynamicModule {
 
     public ViewDynamicModule(SubscriptionView view) {
         this.mSubscriptionView = view;
+    }
+
+    public ViewDynamicModule(RegistrationNumberFragment registrationNumberFragment) {
+        this.mRegistrationNumberView = registrationNumberFragment;
+    }
+
+
+    @Provides
+    RegistrationNumberPresenter provideRegistartionNumberPresenter() {
+        return new RegistrationNumberPresenter(mRegistrationNumberView);
     }
 
 

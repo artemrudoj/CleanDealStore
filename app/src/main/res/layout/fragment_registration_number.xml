@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phone_number_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
+    <EditText
+        android:paddingTop="5dp"
+        android:textSize="16sp"
+        android:id="@+id/phone_number_et"
+        android:hint="@string/phone_number"
+        android:singleLine="true"
+        android:text="@string/phone_mask"
+        android:layout_below="@+id/phone_number_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <com.mipt.artem.cleandealstore.ui.ApproveCodeView
+        android:id="@+id/approve_code_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone_number_container"/>
+
+    <RelativeLayout
+        android:id="@+id/agree_container"
+        android:layout_above="@+id/approve_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/oferta_tv"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/agree_cb"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_gray"
+            android:text="@string/i_agree_with_rules"/>
+        <CheckBox
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:id="@+id/agree_cb"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/approve_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?colorAccent"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:text="@string/get_code"/>
+</RelativeLayout>
+

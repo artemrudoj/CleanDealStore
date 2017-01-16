@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mipt.artem.cleandealstore.base.BaseFragment;
 import com.mipt.artem.cleandealstore.base.ToolbarFragment;
 import com.mipt.artem.cleandealstore.ui.ProgressBarBuilder;
 

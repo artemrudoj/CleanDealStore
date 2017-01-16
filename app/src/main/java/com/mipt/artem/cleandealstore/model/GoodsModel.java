@@ -48,9 +48,9 @@ public class GoodsModel {
     }
 
 
-    public Observable<ItemsHolder> getItem(String name, Integer id) {
+    public Observable<ItemsHolder> getItems(String name, Integer id, String minPrice, String maxPrice) {
         return apiInterface
-                .getItems(name, id)
+                .getItems(name, id, minPrice, maxPrice)
                 .compose(applySchedulers());
     }
 

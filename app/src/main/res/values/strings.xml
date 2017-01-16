@@ -47,7 +47,7 @@
     <string name="go_to">перейти</string>
     <string name="create_order">оформить</string>
     <string name="sum_cost">Суммарная стоимость:</string>
-    <string name="filters">фильтры</string>
+    <string name="filters">Фильтры</string>
     <string name="dim_items">шт.</string>
     <string name="order_with_dotes">Заказать:</string>
     <string name="rest_with_dotes">Осталось:</string>
@@ -63,4 +63,18 @@
     <string name="count_info_for_one_time_delivery">Укажите число единиц товара</string>
     <string name="emty_list_in_one_time_delivery">Добавьте товары из каталога</string>
     <string name="emty_list_in_subscription">Добавь товары в подписку прямо сейчас!</string>
+    <string name="send_repeat">Отправить повторно</string>
+    <string name="approve_code">Код подтверждения</string>
+    <string name="code_was_sended_enter_please">На Ваш номер был отправлен код подтверждения, введите его в форму ниже</string>
+    <string name="approve">ПОДТВЕРДИТЬ</string>
+    <string name="agree_with_rules">Согласитесь с условиями</string>
+    <string name="inccorrect_approve_code">Неправильный код подтверждения</string>
+    <string name="get_code">Получить код</string>
+    <string name="i_agree_with_rules">Внимание! Я ознакомлен и согласен с условиями лицезионного соглашения.</string>
+    <string name="by_price">По цене:</string>
+    <string name="min">Минимальная:</string>
+    <string name="max">Максимальная:</string>
+    <string name="apply">Применить</string>
+    <string name="registration">Регистация</string>
+    <string name="pleas_wait">Пожалуйста, подождите</string>
 </resources>

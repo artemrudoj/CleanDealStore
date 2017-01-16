@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mipt.artem.cleandealstore.R;
-import com.mipt.artem.cleandealstore.base.BaseFragment;
 import com.mipt.artem.cleandealstore.base.Presenter;
 import com.mipt.artem.cleandealstore.base.ToolbarFragment;
 import com.mipt.artem.cleandealstore.di.view.DaggerViewComponent;

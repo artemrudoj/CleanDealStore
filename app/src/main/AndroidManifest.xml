@@ -21,6 +21,9 @@
             android:launchMode="singleTop"/>
         <activity android:name=".shoppingcart.ShoppingCartActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".registration.RegistrationActivity"
+            android:launchMode="singleTop"/>
+
     </application>
 
 </manifest>

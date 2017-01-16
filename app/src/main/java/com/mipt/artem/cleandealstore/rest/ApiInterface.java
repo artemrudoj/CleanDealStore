@@ -1,6 +1,7 @@
 package com.mipt.artem.cleandealstore.rest;
 
 import com.mipt.artem.cleandealstore.model.ItemInCart;
+import com.mipt.artem.cleandealstore.network.UserVO;
 import com.mipt.artem.cleandealstore.rest.responcedata.ItemsHolder;
 import com.mipt.artem.cleandealstore.rest.responcedata.Category;
 
@@ -27,7 +28,9 @@ public interface ApiInterface {
 
     @GET("/api/content/get_items/")
     Observable<ItemsHolder> getItems(@Query("name_full") String name,
-                                     @Query("category") Integer subcategoryId);
+                                     @Query("category") Integer subcategoryId,
+                                     @Query("min_price") String minPrice,
+                                     @Query("max_price") String maxPrice);
 
     @FormUrlEncoded
     @POST("/api/content/get_item_by_id/")
@@ -54,6 +57,20 @@ public interface ApiInterface {
 
     @POST("/api/order/get_rack/")
     Observable<Map<Integer, ItemInCart>> getShoppingCart();
+
+    @FormUrlEncoded
+    @POST("/api/authentication/browser_login/")
+    Observable<UserVO> loginAndRegistrationByCode(@Field("secret") String secret,
+                                                  @Field("phone") String phone,
+                                                  @Field("first_name") String first_name,
+                                                  @Field("last_name") String last_name,
+                                                  @Field("email") String email);
+    @FormUrlEncoded
+    @POST("/api/authentication/get_sms_confirmation_code/")
+    Observable<UserVO> getConfirmationCode(@Field("phone") String phone);
+
+    @GET("/logout/")
+    Observable<Object> logout();
 
 
 }
